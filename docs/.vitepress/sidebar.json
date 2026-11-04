@@ -1,0 +1,60 @@
+{
+  "api": [
+    {
+      "text": "Local player",
+      "link": "/api/local-player"
+    },
+    {
+      "text": "Players",
+      "link": "/api/players"
+    },
+    {
+      "text": "World & tiles",
+      "link": "/api/world-tiles"
+    },
+    {
+      "text": "Items & inventory",
+      "link": "/api/items"
+    },
+    {
+      "text": "Network & variants",
+      "link": "/api/network"
+    },
+    {
+      "text": "Logging & debug",
+      "link": "/api/logging"
+    },
+    {
+      "text": "Hooks & timing",
+      "link": "/api/hooks-timing"
+    },
+    {
+      "text": "UI & dialog",
+      "link": "/api/ui"
+    },
+    {
+      "text": "Render & screen",
+      "link": "/api/render"
+    },
+    {
+      "text": "Objects & components",
+      "link": "/api/objects"
+    },
+    {
+      "text": "Input",
+      "link": "/api/input"
+    },
+    {
+      "text": "Settings",
+      "link": "/api/settings"
+    },
+    {
+      "text": "Utility",
+      "link": "/api/utility"
+    },
+    {
+      "text": "Object & component methods",
+      "link": "/api/methods"
+    }
+  ]
+}

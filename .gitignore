@@ -1,0 +1,6 @@
+# Docs-only repo: ignore everything at the root, then re-include only what the
+# GitHub Pages deploy needs. Keeps the large binaries (APKs, .so, .dll, tools) out.
+/*
+!/.gitignore
+!/.github/
+!/docs/
