@@ -25,7 +25,7 @@ Registers a named hook / callback.
 ## CheckPath {#checkpath}
 
 ```lua
-CheckPath(integer, integer)
+CheckPath(integer, integer) -> boolean
 ```
 
 Returns whether a path to (x, y) is walkable.
@@ -38,6 +38,8 @@ Returns whether a path to (x, y) is walkable.
 |---|------|----------|
 | 1 | `integer` | yes |
 | 2 | `integer` | yes |
+
+**Returns** `boolean`.
 
 
 ## EditToggle {#edittoggle}
@@ -281,7 +283,7 @@ Returns the current world as a table (name, size, tile/object counts).
 ## HashString {#hashstring}
 
 ```lua
-HashString(string)
+HashString(string) -> integer
 ```
 
 Returns a hash of the given string.
@@ -291,6 +293,8 @@ Returns a hash of the given string.
 | # | Type | Required |
 |---|------|----------|
 | 1 | `string` | yes |
+
+**Returns** `integer`.
 
 
 ## KillMe {#killme}

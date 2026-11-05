@@ -29,7 +29,7 @@ Returns the input-event type constants (enum).
 ## Input.IsKeyDown {#iskeydown}
 
 ```lua
-Input.IsKeyDown(integer)
+Input.IsKeyDown(integer) -> boolean
 ```
 
 Returns whether the given key code is currently held.
@@ -39,4 +39,6 @@ Returns whether the given key code is currently held.
 | # | Type | Required |
 |---|------|----------|
 | 1 | `integer` | yes |
+
+**Returns** `boolean`.
 

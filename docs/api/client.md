@@ -176,7 +176,7 @@ Plays a sound by name/path.
 ## Client.ScreenToWorld {#screentoworld}
 
 ```lua
-Client.ScreenToWorld(number, number)
+Client.ScreenToWorld(number, number) -> number, number
 ```
 
 Converts screen coordinates (x, y) to world coordinates.
@@ -187,6 +187,8 @@ Converts screen coordinates (x, y) to world coordinates.
 |---|------|----------|
 | 1 | `number` | yes |
 | 2 | `number` | yes |
+
+**Returns** `number, number`.
 
 
 ## Client.SetLocalState {#setlocalstate}
@@ -247,7 +249,7 @@ Starts/stops tracking a player by netid.
 ## Client.WorldToScreen {#worldtoscreen}
 
 ```lua
-Client.WorldToScreen(number, number)
+Client.WorldToScreen(number, number) -> number, number
 ```
 
 Converts world coordinates (x, y) to screen coordinates.
@@ -258,4 +260,6 @@ Converts world coordinates (x, y) to screen coordinates.
 |---|------|----------|
 | 1 | `number` | yes |
 | 2 | `number` | yes |
+
+**Returns** `number, number`.
 

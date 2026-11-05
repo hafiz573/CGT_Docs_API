@@ -31,7 +31,7 @@ Cancels a timer created by After / Every.
 ## Script.Emit {#emit}
 
 ```lua
-Script.Emit(string, string) -> table
+Script.Emit(string, string)
 ```
 
 Emits a named event to listeners.
@@ -44,8 +44,6 @@ Emits a named event to listeners.
 |---|------|----------|
 | 1 | `string` | yes |
 | 2 | `string` | yes |
-
-**Returns** `table`.
 
 
 ## Script.Every {#every}
@@ -62,19 +60,23 @@ Runs a callback repeatedly every interval in milliseconds; returns a timer id.
 ## Script.GetID {#getid}
 
 ```lua
-Script.GetID()
+Script.GetID() -> integer
 ```
 
 Returns the current script's id.
+
+**Returns** `integer`.
 
 
 ## Script.GetTime {#gettime}
 
 ```lua
-Script.GetTime()
+Script.GetTime() -> number
 ```
 
 Returns the current time.
+
+**Returns** `number`.
 
 
 ## Script.Off {#off}
