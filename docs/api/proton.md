@@ -14,8 +14,6 @@ Proton.AddComponent(string, string, integer)
 
 Adds a component to a Proton object.
 
-<small>Signature reverse-engineered from `0x5a9608`.</small>
-
 **Parameters**
 
 | # | Type | Required |
@@ -32,8 +30,6 @@ Proton.Animate(string)
 ```
 
 Plays an animation on a Proton object.
-
-<small>Signature reverse-engineered from `0x5a7a68`.</small>
 
 **Parameters**
 
@@ -149,8 +145,6 @@ Proton.Inspect(string) -> table
 
 Returns a debug dump of a Proton object.
 
-<small>Signature reverse-engineered from `0x5a8300`.</small>
-
 **Parameters**
 
 | # | Type | Required |
@@ -216,8 +210,6 @@ Proton.RemoveComponent(string, string, integer)
 
 Removes a component from a Proton object.
 
-<small>Signature reverse-engineered from `0x5a9bc4`.</small>
-
 **Parameters**
 
 | # | Type | Required |
@@ -246,8 +238,6 @@ Proton.SetComponent(string, string)
 
 Sets a component value on a Proton object.
 
-<small>Signature reverse-engineered from `0x5a8514`.</small>
-
 **Parameters**
 
 | # | Type | Required |
@@ -263,8 +253,6 @@ Proton.StopAnimation(string)
 ```
 
 Stops an animation on a Proton object.
-
-<small>Signature reverse-engineered from `0x5a7cd4`.</small>
 
 **Parameters**
 

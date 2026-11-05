@@ -14,8 +14,6 @@ Input.GetTypes() -> table
 
 Returns the input-event type constants (enum).
 
-<small>Signature reverse-engineered from `0x5aa5cc`.</small>
-
 **Returns** `table`
 
 | field | type |
@@ -35,8 +33,6 @@ Input.IsKeyDown(integer)
 ```
 
 Returns whether the given key code is currently held.
-
-<small>Signature reverse-engineered from `0x5b06ec`.</small>
 
 **Parameters**
 

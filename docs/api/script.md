@@ -36,7 +36,7 @@ Script.Emit(string, string) -> table
 
 Emits a named event to listeners.
 
-<small>Signature reverse-engineered from `0x5ab0f0`; variadic.</small>
+<small>Variadic (reads a variable number of arguments).</small>
 
 **Parameters**
 
@@ -67,8 +67,6 @@ Script.GetID()
 
 Returns the current script's id.
 
-<small>Signature reverse-engineered from `0x5a693c`.</small>
-
 
 ## Script.GetTime {#gettime}
 
@@ -78,8 +76,6 @@ Script.GetTime()
 
 Returns the current time.
 
-<small>Signature reverse-engineered from `0x5aae28`.</small>
-
 
 ## Script.Off {#off}
 
@@ -88,8 +84,6 @@ Script.Off(string, string)
 ```
 
 Removes an event listener registered with On.
-
-<small>Signature reverse-engineered from `0x5aae74`.</small>
 
 **Parameters**
 

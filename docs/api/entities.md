@@ -25,8 +25,6 @@ Entities.List() -> table
 
 Returns the list of entities.
 
-<small>Signature reverse-engineered from `0x5aeac0`.</small>
-
 **Returns** `table`.
 
 
