@@ -14,8 +14,6 @@ Render.Begin()
 
 Begins a render block for the current frame.
 
-<small>Signature reverse-engineered from `0x5aa180`.</small>
-
 
 ## Render.Circle {#circle}
 
@@ -24,8 +22,6 @@ Render.Circle()
 ```
 
 Draws a circle.
-
-<small>Signature reverse-engineered from `0x5b48c4`.</small>
 
 
 ## Render.Clear {#clear}
@@ -58,8 +54,6 @@ Render.Line()
 
 Draws a line.
 
-<small>Signature reverse-engineered from `0x5b48c4`.</small>
-
 
 ## Render.Present {#present}
 
@@ -69,8 +63,6 @@ Render.Present()
 
 Flushes / presents the current render frame.
 
-<small>Signature reverse-engineered from `0x5aa384`.</small>
-
 
 ## Render.Rect {#rect}
 
@@ -79,8 +71,6 @@ Render.Rect()
 ```
 
 Draws a rectangle.
-
-<small>Signature reverse-engineered from `0x5b48c4`.</small>
 
 
 ## Render.Text {#text}

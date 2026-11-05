@@ -14,8 +14,6 @@ Client.EmitParticle(string, number, number)
 
 Emits a particle effect (name, x, y).
 
-<small>Signature reverse-engineered from `0x5aa6b8`.</small>
-
 **Parameters**
 
 | # | Type | Required |
@@ -32,8 +30,6 @@ Client.GetCamera() -> table
 ```
 
 Returns the camera {x, y, scaleX, scaleY, netid}.
-
-<small>Signature reverse-engineered from `0x5ae4ec`.</small>
 
 **Returns** `table` - see [Camera](/structs#camera)
 
@@ -53,8 +49,6 @@ Client.GetLocalState() -> table
 ```
 
 Returns the local player's physics/movement state (velocity, gravity, drag, facing, on-ground).
-
-<small>Signature reverse-engineered from `0x5ad920`.</small>
 
 **Returns** `table` - see [LocalState](/structs#localstate)
 
@@ -79,8 +73,6 @@ Client.GetObjects() -> table
 
 Returns dropped / world objects as an array ({id, x, y, amount, flags, oid}).
 
-<small>Signature reverse-engineered from `0x584f70`.</small>
-
 **Returns** `table` - see [Object](/structs#object)
 
 | field | type |
@@ -101,7 +93,7 @@ Client.GetPlayers(...) -> table
 
 Returns an array of all players currently in the world.
 
-<small>Signature reverse-engineered from `0x5ad418`; variadic.</small>
+<small>Variadic (reads a variable number of arguments).</small>
 
 **Returns** `table`.
 
@@ -113,8 +105,6 @@ Client.GetScreen() -> table
 ```
 
 Returns the screen size {width, height}.
-
-<small>Signature reverse-engineered from `0x5ad374`.</small>
 
 **Returns** `table` - see [Screen](/structs#screen)
 
@@ -132,8 +122,6 @@ Client.GetSettings() -> table
 
 Returns game settings {musicVolume, frameCounter}.
 
-<small>Signature reverse-engineered from `0x5adfb8`.</small>
-
 **Returns** `table` - see [Settings](/structs#settings)
 
 | field | type |
@@ -149,8 +137,6 @@ Client.GetTiles(integer?, integer?, integer?, integer?) -> table
 ```
 
 Returns an array of tiles, optionally within a bounding box (x1, y1, x2, y2).
-
-<small>Signature reverse-engineered from `0x5ad664`.</small>
 
 **Parameters**
 
@@ -180,8 +166,6 @@ Client.PlaySound(string)
 
 Plays a sound by name/path.
 
-<small>Signature reverse-engineered from `0x5ae7e4`.</small>
-
 **Parameters**
 
 | # | Type | Required |
@@ -196,8 +180,6 @@ Client.ScreenToWorld(number, number)
 ```
 
 Converts screen coordinates (x, y) to world coordinates.
-
-<small>Signature reverse-engineered from `0x5b52f0`.</small>
 
 **Parameters**
 
@@ -215,8 +197,6 @@ Client.SetLocalState()
 
 Writes fields back onto the local player's physics/movement state.
 
-<small>Signature reverse-engineered from `0x5adae8`.</small>
-
 
 ## Client.SetSetting {#setsetting}
 
@@ -225,8 +205,6 @@ Client.SetSetting(string, number | boolean)
 ```
 
 Sets a setting by name to a value.
-
-<small>Signature reverse-engineered from `0x5ae104`.</small>
 
 **Parameters**
 
@@ -244,8 +222,6 @@ Client.ShowDialog(string)
 
 Shows a game dialog from a dialog string.
 
-<small>Signature reverse-engineered from `0x5ae978`.</small>
-
 **Parameters**
 
 | # | Type | Required |
@@ -261,8 +237,6 @@ Client.TrackPlayer(integer)
 
 Starts/stops tracking a player by netid.
 
-<small>Signature reverse-engineered from `0x5ae61c`.</small>
-
 **Parameters**
 
 | # | Type | Required |
@@ -277,8 +251,6 @@ Client.WorldToScreen(number, number)
 ```
 
 Converts world coordinates (x, y) to screen coordinates.
-
-<small>Signature reverse-engineered from `0x5b52f0`.</small>
 
 **Parameters**
 
