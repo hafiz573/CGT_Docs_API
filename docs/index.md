@@ -13,16 +13,16 @@ hero:
       text: API reference
       link: /api/local-player
     - theme: alt
-      text: Structs
-      link: /structs
+      text: BooLua (modded)
+      link: /boolua/
 
 features:
+  - title: Two builds, one site
+    details: 'Native (CGT Ori) is the stock V1.50 API from the APK. BooLua is the mydll-patched build: the same native API plus the loader''s added functions and overrides. Switch with the Build menu.'
   - title: Recovered from the binary
-    details: Every function name, parameter type and return-table field is extracted directly from libregrowtopia.so (V1.50), not copied from another build.
+    details: Every native function name, parameter type and return-table field is extracted directly from libregrowtopia.so (V1.50), not copied from another build.
   - title: Grouped by category
-    details: 60+ functions across local player, players, world & tiles, items, network, render, UI, objects, input and settings.
-  - title: Structs & enums
-    details: The exact table shapes the engine returns (Player, Tile, World, ItemInfo, …) and the input-event type enum.
+    details: 60+ native functions across local player, players, world and tiles, items, network, render, UI, objects, input and settings, plus structs and enums.
 ---
 
 ::: warning Unofficial & inferred
