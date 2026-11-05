@@ -224,3 +224,101 @@ MakeRequest(url, body [, method [, contentType]])
 ```
 
 Fire-and-forget: it does **not** return a response table. Headers (arg 3 table) are not parsed; Content-Type defaults to `application/json`.
+
+## PC-only RE / debug helpers
+
+Registered by the **PC `mydll.dll`** only. These are reverse-engineering / debugging tools (they write CSV / log files); not part of normal scripting. <small>Availability: **PC**.</small>
+
+### _DumpObjects
+
+```lua
+_DumpObjects()
+```
+
+Logs the object-manager struct layout (sizes/offsets) to the mydll log. RE diagnostic.
+
+### _ScanObjects
+
+```lua
+_ScanObjects([item_id])
+```
+
+Scans all world objects to a CSV; optional `item_id` filters to matching entries.
+
+| name | type | required |
+|------|------|----------|
+| `item_id` | `integer` | no |
+
+Returns `integer` (rows written).
+
+### _ScanDrops
+
+```lua
+_ScanDrops([item_id])
+```
+
+Scans dropped items to a CSV; optional `item_id` filter (checks both id fields).
+
+| name | type | required |
+|------|------|----------|
+| `item_id` | `integer` | no |
+
+Returns `integer` (rows written).
+
+### _ScanCandidates
+
+```lua
+_ScanCandidates(offset [, max_dump])
+```
+
+RE helper: dumps the first N (`max_dump`, default 5) Object entries at a candidate vector offset.
+
+| name | type | required |
+|------|------|----------|
+| `offset` | `integer` | yes |
+| `max_dump` | `integer` | no |
+
+### _ScanTiles
+
+```lua
+_ScanTiles(fg_id [, mode])
+```
+
+Bulk tile scan via direct memory to a CSV. `mode`: `fg` / `bg` / `both` (default `both`).
+
+| name | type | required |
+|------|------|----------|
+| `fg_id` | `integer` | yes |
+| `mode` | `string` | no |
+
+Returns `integer` (matches).
+
+### _FindFloat
+
+```lua
+_FindFloat(value [, tolerance])
+```
+
+Scans process memory for float values near `value` (default tolerance `0.001`); writes candidates to a CSV.
+
+| name | type | required |
+|------|------|----------|
+| `value` | `number` | yes |
+| `tolerance` | `number` | no |
+
+Returns `integer` (candidates found).
+
+### _RefineFloat
+
+```lua
+_RefineFloat(newval [, tol])
+```
+
+Re-checks the previous `_FindFloat` candidates against `newval` (default tol `0.01`) to narrow them down.
+
+| name | type | required |
+|------|------|----------|
+| `newval` | `number` | yes |
+| `tol` | `number` | no |
+
+Returns `integer` (remaining).
