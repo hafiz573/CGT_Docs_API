@@ -20,11 +20,11 @@ export default defineConfig({
         // Build switcher: the two views of the API.
         text: 'Build',
         items: [
-          { text: 'Native (CGT Ori)', link: '/api/local-player' },
+          { text: 'Native (CGT Ori)', link: '/api/globals' },
           { text: 'BooLua (modded)', link: '/boolua/' },
         ],
       },
-      { text: 'Native API', link: '/api/local-player' },
+      { text: 'Native API', link: '/api/globals' },
       { text: 'BooLua', link: '/boolua/' },
       { text: 'Structs', link: '/structs' },
       { text: 'Examples', link: '/examples' },

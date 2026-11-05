@@ -4,7 +4,7 @@ Table shapes returned by the API, recovered from the binary (the field names and
 
 ## Player
 
-A player (local or remote). `pos` is a nested `{x, y}` table. Returned by [`GetLocal`](/api/local-player#getlocal).
+A player (local or remote). `pos` is a nested `{x, y}` table. Returned by [`GetLocal`](/api/globals#getlocal).
 
 | field | type |
 |-------|------|
@@ -24,7 +24,7 @@ A player (local or remote). `pos` is a nested `{x, y}` table. Returned by [`GetL
 
 ## LocalState
 
-The local player's physics / movement state. Returned by [`GetLocalState`](/api/local-player#getlocalstate).
+The local player's physics / movement state. Returned by [`GetLocalState`](/api/client#getlocalstate).
 
 | field | type |
 |-------|------|
@@ -40,7 +40,7 @@ The local player's physics / movement state. Returned by [`GetLocalState`](/api/
 
 ## PlayerInfo
 
-Account-level info for the local player. Returned by [`GetPlayerInfo`](/api/players#getplayerinfo).
+Account-level info for the local player. Returned by [`GetPlayerInfo`](/api/globals#getplayerinfo).
 
 | field | type |
 |-------|------|
@@ -50,7 +50,7 @@ Account-level info for the local player. Returned by [`GetPlayerInfo`](/api/play
 
 ## World
 
-The current world. Returned by [`GetWorld`](/api/world-tiles#getworld).
+The current world. Returned by [`GetWorld`](/api/globals#getworld).
 
 | field | type |
 |-------|------|
@@ -63,7 +63,7 @@ The current world. Returned by [`GetWorld`](/api/world-tiles#getworld).
 
 ## Tile
 
-A single tile from `GetTile(x, y)`. Returned by [`GetTile`](/api/world-tiles#gettile).
+A single tile from `GetTile(x, y)`. Returned by [`GetTile`](/api/globals#gettile).
 
 | field | type |
 |-------|------|
@@ -79,7 +79,7 @@ A single tile from `GetTile(x, y)`. Returned by [`GetTile`](/api/world-tiles#get
 
 ## TileShort
 
-A compact tile entry from the `GetTiles` array. Returned by [`GetTiles`](/api/world-tiles#gettiles).
+A compact tile entry from the `GetTiles` array. Returned by [`GetTiles`](/api/client#gettiles).
 
 | field | type |
 |-------|------|
@@ -91,7 +91,7 @@ A compact tile entry from the `GetTiles` array. Returned by [`GetTiles`](/api/wo
 
 ## ItemInfo
 
-Item metadata (also each element of `GetItemInfoList`). Returned by [`GetItemInfo`](/api/items#getiteminfo).
+Item metadata (also each element of `GetItemInfoList`). Returned by [`GetItemInfo`](/api/globals#getiteminfo).
 
 | field | type |
 |-------|------|
@@ -111,7 +111,7 @@ Item metadata (also each element of `GetItemInfoList`). Returned by [`GetItemInf
 
 ## InventoryItem
 
-One inventory slot from the `GetInventory` array. Returned by [`GetInventory`](/api/items#getinventory).
+One inventory slot from the `GetInventory` array. Returned by [`GetInventory`](/api/globals#getinventory).
 
 | field | type |
 |-------|------|
@@ -121,7 +121,7 @@ One inventory slot from the `GetInventory` array. Returned by [`GetInventory`](/
 
 ## Object
 
-One world object from the `GetObjects` array. Returned by [`GetObjects`](/api/objects#getobjects).
+One world object from the `GetObjects` array. Returned by [`GetObjects`](/api/client#getobjects).
 
 | field | type |
 |-------|------|
@@ -134,7 +134,7 @@ One world object from the `GetObjects` array. Returned by [`GetObjects`](/api/ob
 
 ## Settings
 
-Game settings. Returned by [`GetSettings`](/api/settings#getsettings).
+Game settings. Returned by [`GetSettings`](/api/client#getsettings).
 
 | field | type |
 |-------|------|
@@ -143,7 +143,7 @@ Game settings. Returned by [`GetSettings`](/api/settings#getsettings).
 
 ## Camera
 
-The render camera. Returned by [`GetCamera`](/api/render#getcamera).
+The render camera. Returned by [`GetCamera`](/api/client#getcamera).
 
 | field | type |
 |-------|------|
@@ -155,21 +155,9 @@ The render camera. Returned by [`GetCamera`](/api/render#getcamera).
 
 ## Screen
 
-Screen dimensions. Returned by [`GetScreen`](/api/render#getscreen).
+Screen dimensions. Returned by [`GetScreen`](/api/client#getscreen).
 
 | field | type |
 |-------|------|
 | `width` | `number` |
 | `height` | `number` |
-
-## HttpResponse
-
-The response table from `MakeRequest`. Returned by [`MakeRequest`](/api/network#makerequest).
-
-| field | type |
-|-------|------|
-| `status` | `integer` |
-| `error` | `boolean` |
-| `method` | `string` |
-| `content` | `string` |
-| `errorMessage` | `string` |

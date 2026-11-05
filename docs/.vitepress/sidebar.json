@@ -1,60 +1,36 @@
 {
   "api": [
     {
-      "text": "Local player",
-      "link": "/api/local-player"
+      "text": "Globals (26)",
+      "link": "/api/globals"
     },
     {
-      "text": "Players",
-      "link": "/api/players"
+      "text": "Client (15)",
+      "link": "/api/client"
     },
     {
-      "text": "World & tiles",
-      "link": "/api/world-tiles"
+      "text": "Entities (3)",
+      "link": "/api/entities"
     },
     {
-      "text": "Items & inventory",
-      "link": "/api/items"
-    },
-    {
-      "text": "Network & variants",
-      "link": "/api/network"
-    },
-    {
-      "text": "Logging & debug",
-      "link": "/api/logging"
-    },
-    {
-      "text": "Hooks & timing",
-      "link": "/api/hooks-timing"
-    },
-    {
-      "text": "UI & dialog",
-      "link": "/api/ui"
-    },
-    {
-      "text": "Render & screen",
-      "link": "/api/render"
-    },
-    {
-      "text": "Objects & components",
-      "link": "/api/objects"
-    },
-    {
-      "text": "Input",
+      "text": "Input (2)",
       "link": "/api/input"
     },
     {
-      "text": "Settings",
-      "link": "/api/settings"
+      "text": "Proton (21)",
+      "link": "/api/proton"
     },
     {
-      "text": "Utility",
-      "link": "/api/utility"
+      "text": "Render (8)",
+      "link": "/api/render"
     },
     {
-      "text": "Object & component methods",
-      "link": "/api/methods"
+      "text": "Script (8)",
+      "link": "/api/script"
+    },
+    {
+      "text": "UI (15)",
+      "link": "/api/ui"
     }
   ]
 }

@@ -1,6 +1,6 @@
 # Added functions
 
-Functions the **mydll** loader registers into the script environment, on top of the [native API](/api/local-player). Derived from the loader source, so parameter names and semantics are exact.
+Functions the **mydll** loader registers into the script environment, on top of the [native API](/api/globals). Derived from the loader source, so parameter names and semantics are exact.
 
 ## _SetFly
 
@@ -24,7 +24,7 @@ Enables or disables mod-fly for the local player.
 _FlyState() -> integer
 ```
 
-Returns the current fly state as an integer `0`/`1` (not boolean - scripts written as `_FlyState() == 1` work on both platforms).
+Returns the current fly state as an integer `0`/`1` (not boolean - `_FlyState() == 1` works on both platforms).
 
 <small>Availability: **PC + Android**.</small>
 
@@ -203,7 +203,7 @@ Restores the client's original version/protocol defaults (`-4.54` / `71`).
 MakeRequest(url, ...)
 ```
 
-Fire-and-forget HTTP request (**overrides** the native `MakeRequest`). Two call forms are accepted.
+Fire-and-forget HTTP request added by the loader (the stock V1.50 sandbox does **not** expose `MakeRequest`). Two call forms.
 
 <small>Availability: **PC + Android**.</small>
 
@@ -214,7 +214,7 @@ Fire-and-forget HTTP request (**overrides** the native `MakeRequest`). Two call 
 | `url` | `string` | yes |
 | `...` | `see below` | no |
 
-**Call forms** (the selector matches the PC loader: an HTTP verb in arg 2, or a table in arg 3, means the game-native form):
+**Call forms** (an HTTP verb in arg 2, or a table in arg 3, selects the game-native form):
 
 ```lua
 -- game-native form
@@ -223,4 +223,4 @@ MakeRequest(url, method, headers, content, timeout)
 MakeRequest(url, body [, method [, contentType]])
 ```
 
-Fire-and-forget: it does **not** return a response table (unlike the native [`MakeRequest`](/api/network#makerequest)). Headers (arg 3 table) are not parsed; Content-Type defaults to `application/json`.
+Fire-and-forget: it does **not** return a response table. Headers (arg 3 table) are not parsed; Content-Type defaults to `application/json`.

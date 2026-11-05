@@ -1,195 +1,95 @@
-# Render & screen
+# Render
 
-> **How this reference was built.** The V1.50 binary ships **no documentation prose** (no descriptions, examples or signatures). Every **function name, parameter type and return-table field below is reverse-engineered directly from `lib/arm64-v8a/libregrowtopia.so`** (APK `CreativeGrowtopia-V1.50-CPS`). The one-line **descriptions are inferred** from each name and its recovered signature - treat them as guidance, not guarantees.
+*Immediate-mode drawing primitives for the current frame.*
 
-### Line
+> **How this reference was built.** The authoritative list of names and their namespaces comes from a **live in-game `_G` dump** (108 names, hash `19601d21`, identical on PC and Android). Parameter types and return-table fields are **reverse-engineered from `libregrowtopia.so`** (V1.50); one-line **descriptions are inferred**. Treat descriptions as guidance, not guarantees.
+
+Accessed as `Render.<method>`. 8 methods.
+
+## Render.Begin {#begin}
 
 ```lua
-Line()
+Render.Begin()
 ```
 
-Draws a line (render primitive).
+Begins a render block for the current frame.
+
+<small>Signature reverse-engineered from `0x5aa180`.</small>
+
+
+## Render.Circle {#circle}
+
+```lua
+Render.Circle()
+```
+
+Draws a circle.
 
 <small>Signature reverse-engineered from `0x5b48c4`.</small>
 
 
-### Rect
+## Render.Clear {#clear}
 
 ```lua
-Rect()
+Render.Clear(...)
 ```
 
-Draws a rectangle (render primitive).
+Clears the current frame's draw list.
+
+<small>Name confirmed from the runtime `_G` dump; individual signature not reverse-engineered (shared/ambiguous handler).</small>
+
+
+## Render.Image {#image}
+
+```lua
+Render.Image(...)
+```
+
+Draws an image / texture.
+
+<small>Name confirmed from the runtime `_G` dump; individual signature not reverse-engineered (shared/ambiguous handler).</small>
+
+
+## Render.Line {#line}
+
+```lua
+Render.Line()
+```
+
+Draws a line.
 
 <small>Signature reverse-engineered from `0x5b48c4`.</small>
 
 
-### Circle
+## Render.Present {#present}
 
 ```lua
-Circle()
+Render.Present()
 ```
 
-Draws a circle (render primitive).
-
-<small>Signature reverse-engineered from `0x5b48c4`.</small>
-
-
-### Present
-
-```lua
-Present()
-```
-
-Flushes/presents the current render frame.
+Flushes / presents the current render frame.
 
 <small>Signature reverse-engineered from `0x5aa384`.</small>
 
 
-### ScreenToWorld
+## Render.Rect {#rect}
 
 ```lua
-ScreenToWorld(number, number)
+Render.Rect()
 ```
 
-Converts screen coordinates (x, y) to world coordinates.
+Draws a rectangle.
 
-<small>Signature reverse-engineered from `0x5b52f0`.</small>
-
-**Parameters**
-
-| # | Type | Required |
-|---|------|----------|
-| 1 | `number` | yes |
-| 2 | `number` | yes |
+<small>Signature reverse-engineered from `0x5b48c4`.</small>
 
 
-### WorldToScreen
+## Render.Text {#text}
 
 ```lua
-WorldToScreen(number, number)
+Render.Text(...)
 ```
 
-Converts world coordinates (x, y) to screen coordinates.
+Draws text at a position.
 
-<small>Signature reverse-engineered from `0x5b52f0`.</small>
-
-**Parameters**
-
-| # | Type | Required |
-|---|------|----------|
-| 1 | `number` | yes |
-| 2 | `number` | yes |
-
-
-### GetScreen
-
-```lua
-GetScreen() → table
-```
-
-Returns the screen size {width, height}.
-
-<small>Signature reverse-engineered from `0x5ad374`.</small>
-
-**Returns** `table` - see [Screen](/structs#screen)
-
-| field | type |
-|-------|------|
-| `width` | `number` |
-| `height` | `number` |
-
-
-### GetCamera
-
-```lua
-GetCamera() → table
-```
-
-Returns the camera {x, y, scaleX, scaleY, netid}.
-
-<small>Signature reverse-engineered from `0x5ae4ec`.</small>
-
-**Returns** `table` - see [Camera](/structs#camera)
-
-| field | type |
-|-------|------|
-| `x` | `number` |
-| `y` | `number` |
-| `scaleX` | `number` |
-| `scaleY` | `number` |
-| `netid` | `integer` |
-
-
-### EmitParticle
-
-```lua
-EmitParticle(string, number, number)
-```
-
-Emits a particle effect (name, x, y).
-
-<small>Signature reverse-engineered from `0x5aa6b8`.</small>
-
-**Parameters**
-
-| # | Type | Required |
-|---|------|----------|
-| 1 | `string` | yes |
-| 2 | `number` | yes |
-| 3 | `number` | yes |
-
-
-### Emit
-
-```lua
-Emit(string, string) → table
-```
-
-Emits a named event.
-
-<small>Signature reverse-engineered from `0x5ab0f0`; variadic (reads a variable number of arguments).</small>
-
-**Parameters**
-
-| # | Type | Required |
-|---|------|----------|
-| 1 | `string` | yes |
-| 2 | `string` | yes |
-
-**Returns** `table`.
-
-
-### PlaySound
-
-```lua
-PlaySound(string)
-```
-
-Plays a sound by name/path.
-
-<small>Signature reverse-engineered from `0x5ae7e4`.</small>
-
-**Parameters**
-
-| # | Type | Required |
-|---|------|----------|
-| 1 | `string` | yes |
-
-
-### SetFPSLimit
-
-```lua
-SetFPSLimit(integer)
-```
-
-Sets the render FPS limit.
-
-<small>Signature reverse-engineered from `0x582e7c`.</small>
-
-**Parameters**
-
-| # | Type | Required |
-|---|------|----------|
-| 1 | `integer` | yes |
+<small>Name confirmed from the runtime `_G` dump; individual signature not reverse-engineered (shared/ambiguous handler).</small>
 
