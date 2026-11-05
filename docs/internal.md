@@ -1,11 +1,8 @@
 # Internal environment
 
-These names are registered in the script environment but are **not game API** - they are Lua stdlib or engine-internal helpers. Listed for completeness.
+Names present in the script `_G` but **not game API** - engine-internal helpers. Listed for completeness.
 
-- `print` - `print(string)`
-- `os` - `os()`
-- `time` - `time()`
-- `lock` - `lock()`
-- `unlock` - `unlock()`
-- `searchers` - `searchers(string)`
-- `__gc` - `__gc(string, string)`
+- `lock` / `unlock` - internal mutex helpers.
+- `sleep` - lowercase alias of the timing [`Sleep`](/api/globals#sleep).
+
+> Lua standard-library tables (`math`, `string`, `table`, ...) are available to scripts but are excluded from the API fingerprint and not listed here.

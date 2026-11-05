@@ -1,12 +1,12 @@
 # Examples
 
-Short, **illustrative** snippets built from the recovered signatures. They show *how the API is shaped*,
-not verified game behaviour - adapt them to your build.
+Short, **illustrative** snippets. They show *how the API is shaped* (note the namespaces: `Client.*`,
+`Render.*`, `Input.*`, ...), not verified game behaviour - adapt them to your build.
 
 ## Enumerate players
 
 ```lua
-for _, p in ipairs(GetPlayers()) do
+for _, p in ipairs(Client.GetPlayers()) do
   LogToConsole(p.netid .. ": " .. p.name .. (p.isleft and " (left)" or ""))
 end
 ```
@@ -14,7 +14,7 @@ end
 ## Read a region of tiles
 
 ```lua
-local tiles = GetTiles(0, 0, 10, 10)   -- optional bounding box (x1, y1, x2, y2)
+local tiles = Client.GetTiles(0, 0, 10, 10)   -- optional bounding box (x1, y1, x2, y2)
 for _, t in ipairs(tiles) do
   if t.fg ~= 0 then
     LogToConsole(("tile %d,%d fg=%d"):format(t.x, t.y, t.fg))
@@ -25,44 +25,33 @@ end
 ## Item lookup
 
 ```lua
-local dirt = GetItemInfo(2)          -- by id
+local dirt = GetItemInfo(2)          -- global; by id
 local blk  = GetItemInfo("Dirt")     -- or by name (overloaded #1 arg)
 LogToConsole(dirt.name .. " rarity=" .. dirt.rarity .. " type=" .. dirt.type)
 ```
 
-## HTTP request (native V1.50)
+## A render overlay
 
 ```lua
-local res = MakeRequest("https://example.com/api", body, 1)
-if not res.error then
-  LogToConsole("status " .. res.status .. ": " .. res.content)
-else
-  LogToConsole("request failed: " .. tostring(res.errorMessage))
-end
+Script.On("render", function()        -- Script.* events
+  local cam = Client.GetCamera()
+  Render.Begin()
+  Render.Text("cam " .. math.floor(cam.x) .. "," .. math.floor(cam.y))
+  Render.Line()                        -- draw primitives take positional args
+  Render.Present()
+end)
 ```
 
-::: tip
-On mydll-patched builds `MakeRequest` is replaced by the loader's own implementation; the response
-table shape may differ.
-:::
+> `Input.GetTypes()` returns the input-event [enum](/enums#gettypes) (`PointerDown`, `Key`, ...).
+> Event / timer wiring (`Script.On`, `Script.After`, `Script.Every`, `Script.Off`) is engine-specific;
+> confirm the callback contract in your executor.
 
-## A render hook
+## HTTP request (BooLua only)
+
+The stock V1.50 sandbox has no `MakeRequest`. The [mydll-patched build](/boolua/functions#makerequest)
+adds a fire-and-forget one:
 
 ```lua
-AddHook("render", "myoverlay")
-
-local T = GetTypes()   -- input-event constants
-
-function OnRender()
-  local cam = GetCamera()
-  local s   = GetScreen()
-  Begin()
-  Text("cam " .. math.floor(cam.x) .. "," .. math.floor(cam.y))
-  Line()   -- draw primitives take positional args (see Render & screen)
-  Present()
-end
+MakeRequest("https://example.com/api", body)          -- legacy form
+MakeRequest("https://example.com/api", "POST", {}, body)  -- game-native form
 ```
-
-> `GetTypes()` returns the input-event [enum](/enums#gettypes) (`PointerDown`, `Key`, …).
-> Hook/callback wiring (`AddHook`, `Emit`, `Off`) is engine-specific; confirm the callback contract
-> in your executor.

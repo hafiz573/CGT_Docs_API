@@ -1,53 +1,172 @@
-# UI & dialog
+# UI
 
-> **How this reference was built.** The V1.50 binary ships **no documentation prose** (no descriptions, examples or signatures). Every **function name, parameter type and return-table field below is reverse-engineered directly from `lib/arm64-v8a/libregrowtopia.so`** (APK `CreativeGrowtopia-V1.50-CPS`). The one-line **descriptions are inferred** from each name and its recovered signature - treat them as guidance, not guarantees.
+*Immediate-mode (ImGui-style) widgets.*
 
-### Begin
+> **How this reference was built.** The authoritative list of names and their namespaces comes from a **live in-game `_G` dump** (108 names, hash `19601d21`, identical on PC and Android). Parameter types and return-table fields are **reverse-engineered from `libregrowtopia.so`** (V1.50); one-line **descriptions are inferred**. Treat descriptions as guidance, not guarantees.
 
-```lua
-Begin()
-```
+Accessed as `UI.<method>`. 15 methods.
 
-Begins a UI/render frame block.
-
-<small>Signature reverse-engineered from `0x5aa180`.</small>
-
-
-### Text
+## UI.Button {#button}
 
 ```lua
-Text()
+UI.Button(...)
 ```
 
-Draws a text UI/render primitive.
+Immediate-mode button; returns true on the frame it is clicked.
 
-<small>Signature reverse-engineered from `0x5b48c4`.</small>
+<small>Name confirmed from the runtime `_G` dump; individual signature not reverse-engineered (shared/ambiguous handler).</small>
 
 
-### Image
+## UI.Checkbox {#checkbox}
 
 ```lua
-Image()
+UI.Checkbox(...)
 ```
 
-Draws an image UI/render primitive.
+Immediate-mode checkbox bound to a boolean.
 
-<small>Signature reverse-engineered from `0x5b48c4`.</small>
+<small>Name confirmed from the runtime `_G` dump; individual signature not reverse-engineered (shared/ambiguous handler).</small>
 
 
-### ShowDialog
+## UI.Clear {#clear}
 
 ```lua
-ShowDialog(string)
+UI.Clear(...)
 ```
 
-Shows a game dialog from a dialog string.
+Clears the UI state / widgets.
 
-<small>Signature reverse-engineered from `0x5ae978`.</small>
+<small>Name confirmed from the runtime `_G` dump; individual signature not reverse-engineered (shared/ambiguous handler).</small>
 
-**Parameters**
 
-| # | Type | Required |
-|---|------|----------|
-| 1 | `string` | yes |
+## UI.Combo {#combo}
+
+```lua
+UI.Combo(...)
+```
+
+Immediate-mode dropdown (combo box).
+
+<small>Name confirmed from the runtime `_G` dump; individual signature not reverse-engineered (shared/ambiguous handler).</small>
+
+
+## UI.Create {#create}
+
+```lua
+UI.Create(...)
+```
+
+Creates a UI element / handle.
+
+<small>Name confirmed from the runtime `_G` dump; individual signature not reverse-engineered (shared/ambiguous handler).</small>
+
+
+## UI.Get {#get}
+
+```lua
+UI.Get(...)
+```
+
+Reads a UI element value.
+
+<small>Name confirmed from the runtime `_G` dump; individual signature not reverse-engineered (shared/ambiguous handler).</small>
+
+
+## UI.Input {#input}
+
+```lua
+UI.Input(...)
+```
+
+Immediate-mode text input field.
+
+<small>Name confirmed from the runtime `_G` dump; individual signature not reverse-engineered (shared/ambiguous handler).</small>
+
+
+## UI.Progress {#progress}
+
+```lua
+UI.Progress(...)
+```
+
+Immediate-mode progress bar.
+
+<small>Name confirmed from the runtime `_G` dump; individual signature not reverse-engineered (shared/ambiguous handler).</small>
+
+
+## UI.Remove {#remove}
+
+```lua
+UI.Remove(...)
+```
+
+Removes a UI element.
+
+<small>Name confirmed from the runtime `_G` dump; individual signature not reverse-engineered (shared/ambiguous handler).</small>
+
+
+## UI.SameLine {#sameline}
+
+```lua
+UI.SameLine(...)
+```
+
+Keeps the next widget on the same line as the previous one.
+
+<small>Name confirmed from the runtime `_G` dump; individual signature not reverse-engineered (shared/ambiguous handler).</small>
+
+
+## UI.Separator {#separator}
+
+```lua
+UI.Separator(...)
+```
+
+Draws a horizontal separator line.
+
+<small>Name confirmed from the runtime `_G` dump; individual signature not reverse-engineered (shared/ambiguous handler).</small>
+
+
+## UI.Set {#set}
+
+```lua
+UI.Set(...)
+```
+
+Sets a UI element value.
+
+<small>Name confirmed from the runtime `_G` dump; individual signature not reverse-engineered (shared/ambiguous handler).</small>
+
+
+## UI.Slider {#slider}
+
+```lua
+UI.Slider(...)
+```
+
+Immediate-mode slider for a numeric value.
+
+<small>Name confirmed from the runtime `_G` dump; individual signature not reverse-engineered (shared/ambiguous handler).</small>
+
+
+## UI.Text {#text}
+
+```lua
+UI.Text(...)
+```
+
+Draws a UI text label.
+
+<small>Name confirmed from the runtime `_G` dump; individual signature not reverse-engineered (shared/ambiguous handler).</small>
+
+
+## UI.Window {#window}
+
+```lua
+UI.Window(...)
+```
+
+Begins an immediate-mode window / panel.
+
+<small>Name confirmed from the runtime `_G` dump; individual signature not reverse-engineered (shared/ambiguous handler).</small>
 

@@ -1,5 +1,18 @@
 # Overview
 
+## How the API is organised
+
+The surface is taken from a **live in-game `_G` dump** (108 names, hash `19601d21`, identical on PC and
+Android). It splits into:
+
+- **[Global functions](/api/globals)** - registered directly in the script globals (e.g. `GetTile`, `GetWorld`).
+- **Namespaces** - tables of methods called as `Namespace.method(...)`:
+  [`Client`](/api/client), [`Entities`](/api/entities), [`Input`](/api/input), [`Proton`](/api/proton),
+  [`Render`](/api/render), [`Script`](/api/script), [`UI`](/api/ui).
+
+A name's badge/signature is attached when it was individually reverse-engineered; some namespace methods
+share a handler and are listed name-only (confirmed by the dump, signature not individually recovered).
+
 ## How to read a function entry
 
 Each function shows a Lua-style signature, an inferred description, the address it was recovered from,
@@ -24,14 +37,15 @@ GetTile(integer, integer) → table
   as usual; `any` is an unconstrained value.
 - **Coordinates**: world/tile functions take integer tile coordinates; render/screen functions take
   `number` pixel coordinates. Conversions depend on the engine tile size.
-- Functions grouped under [Object & component methods](/api/methods) (`Get`, `Set`, `Create`, …) are
-  generic - they are registered as methods on engine objects/handles rather than standalone globals.
+- Generic method names (`Get`, `Set`, `Create`, `Clear`, ...) appear in several namespaces
+  ([`Entities`](/api/entities), [`Proton`](/api/proton), [`UI`](/api/ui)); they are distinct functions per
+  namespace, so they are listed name-only rather than sharing one reverse-engineered signature.
 
 ## What is *not* here
 
-- `MakeRequest` is documented as the **native** V1.50 implementation. On **mydll-patched** builds it is
-  replaced by a custom implementation - see your loader's notes.
-- Lua standard-library tables (`base`, `io`, `string`, `table`) and engine-internal env entries are listed
-  under [Internal environment](/internal), not as game API.
-- The exact runtime `_G` fingerprint for V1.50 is **108 names** (hash `19601d21`), identical on PC and
-  Android. The functions here are the `pushcclosure`-registered subset of that surface.
+- `MakeRequest` is **not** part of the stock V1.50 surface (it is absent from the `_G` dump). The
+  **mydll-patched** build adds its own - see [BooLua](/boolua/functions#makerequest).
+- Lua standard-library tables (`math`, `string`, `table`, ...) are available to scripts but excluded from
+  the API fingerprint; `lock`/`sleep`/`unlock` are engine-internal ([Internal environment](/internal)).
+- The runtime `_G` fingerprint is **108 names** (hash `19601d21`), identical on PC and Android - this site
+  documents all of them.

@@ -1,11 +1,37 @@
 # Input
 
-> **How this reference was built.** The V1.50 binary ships **no documentation prose** (no descriptions, examples or signatures). Every **function name, parameter type and return-table field below is reverse-engineered directly from `lib/arm64-v8a/libregrowtopia.so`** (APK `CreativeGrowtopia-V1.50-CPS`). The one-line **descriptions are inferred** from each name and its recovered signature - treat them as guidance, not guarantees.
+*Keyboard / pointer input and the input-event type enum.*
 
-### IsKeyDown
+> **How this reference was built.** The authoritative list of names and their namespaces comes from a **live in-game `_G` dump** (108 names, hash `19601d21`, identical on PC and Android). Parameter types and return-table fields are **reverse-engineered from `libregrowtopia.so`** (V1.50); one-line **descriptions are inferred**. Treat descriptions as guidance, not guarantees.
+
+Accessed as `Input.<method>`. 2 methods.
+
+## Input.GetTypes {#gettypes}
 
 ```lua
-IsKeyDown(integer)
+Input.GetTypes() -> table
+```
+
+Returns the input-event type constants (enum).
+
+<small>Signature reverse-engineered from `0x5aa5cc`.</small>
+
+**Returns** `table`
+
+| field | type |
+|-------|------|
+| `PointerDown` | `integer` |
+| `PointerUp` | `integer` |
+| `PointerDrag` | `integer` |
+| `PointerMove` | `integer` |
+| `Character` | `integer` |
+| `Key` | `integer` |
+
+
+## Input.IsKeyDown {#iskeydown}
+
+```lua
+Input.IsKeyDown(integer)
 ```
 
 Returns whether the given key code is currently held.
