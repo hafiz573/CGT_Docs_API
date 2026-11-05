@@ -20,13 +20,30 @@ Registers a named hook/callback.
 | 2 | `string` | yes |
 
 
+### Sleep
+
+```lua
+Sleep(integer)
+```
+
+Suspends the script for the given milliseconds (native registered name).
+
+<small>Signature reverse-engineered from `0x5813dc`.</small>
+
+**Parameters**
+
+| # | Type | Required |
+|---|------|----------|
+| 1 | `integer` | yes |
+
+
 ### sleep
 
 ```lua
 sleep(integer)
 ```
 
-Suspends the script for the given milliseconds.
+Suspends the script for the given milliseconds (lowercase alias in the sandbox env).
 
 <small>Signature reverse-engineered from `0x5813dc`.</small>
 
