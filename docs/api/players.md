@@ -1,6 +1,6 @@
 # Players
 
-> **How this reference was built.** The V1.50 binary ships **no documentation prose** (no descriptions, examples or signatures). Every **function name, parameter type and return-table field below is reverse-engineered directly from `lib/arm64-v8a/libregrowtopia.so`** (APK `CreativeGrowtopia-V1.50-CPS`). The one-line **descriptions are inferred** from each name and its recovered signature — treat them as guidance, not guarantees.
+> **How this reference was built.** The V1.50 binary ships **no documentation prose** (no descriptions, examples or signatures). Every **function name, parameter type and return-table field below is reverse-engineered directly from `lib/arm64-v8a/libregrowtopia.so`** (APK `CreativeGrowtopia-V1.50-CPS`). The one-line **descriptions are inferred** from each name and its recovered signature - treat them as guidance, not guarantees.
 
 ### GetPlayer
 
@@ -18,7 +18,7 @@ Returns a player by netid as a table, or nil if not present.
 |---|------|----------|
 | 1 | `integer` | yes |
 
-**Returns** `table` — see [Player](/structs#player)
+**Returns** `table` - see [Player](/structs#player)
 
 | field | type |
 |-------|------|
@@ -56,7 +56,7 @@ Returns account-level info for the local player (gems, inventory size, selected 
 
 <small>Signature reverse-engineered from `0x581b94`.</small>
 
-**Returns** `table` — see [PlayerInfo](/structs#playerinfo)
+**Returns** `table` - see [PlayerInfo](/structs#playerinfo)
 
 | field | type |
 |-------|------|
