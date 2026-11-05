@@ -38,6 +38,7 @@ export default defineConfig({
             { text: 'Overview', link: '/boolua/' },
             { text: 'Added functions', link: '/boolua/functions' },
             { text: 'Overrides', link: '/boolua/overrides' },
+            { text: 'Examples', link: '/boolua/examples' },
           ],
         },
         {
@@ -71,6 +72,7 @@ export default defineConfig({
             { text: 'Overview', link: '/boolua/' },
             { text: 'Added functions', link: '/boolua/functions' },
             { text: 'Overrides', link: '/boolua/overrides' },
+            { text: 'Examples', link: '/boolua/examples' },
           ],
         },
       ],
