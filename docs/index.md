@@ -4,7 +4,7 @@ layout: home
 hero:
   name: CGT V1.50
   text: Lua API Reference
-  tagline: Reverse-engineered reference for the CreativeGrowtopia V1.50 scripting API — functions, structs and enums recovered directly from the binary.
+  tagline: Reverse-engineered reference for the CreativeGrowtopia V1.50 scripting API - functions, structs and enums recovered directly from the binary.
   actions:
     - theme: brand
       text: Get started
@@ -26,7 +26,7 @@ features:
 ---
 
 ::: warning Unofficial & inferred
-This is community documentation. The V1.50 binary contains **no documentation prose** — signatures are
+This is community documentation. The V1.50 binary contains **no documentation prose** - signatures are
 reverse-engineered and the one-line descriptions are **inferred** from each name and its recovered signature.
 Verify against your own build before relying on any detail.
 :::

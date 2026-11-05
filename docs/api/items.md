@@ -1,6 +1,6 @@
 # Items & inventory
 
-> **How this reference was built.** The V1.50 binary ships **no documentation prose** (no descriptions, examples or signatures). Every **function name, parameter type and return-table field below is reverse-engineered directly from `lib/arm64-v8a/libregrowtopia.so`** (APK `CreativeGrowtopia-V1.50-CPS`). The one-line **descriptions are inferred** from each name and its recovered signature — treat them as guidance, not guarantees.
+> **How this reference was built.** The V1.50 binary ships **no documentation prose** (no descriptions, examples or signatures). Every **function name, parameter type and return-table field below is reverse-engineered directly from `lib/arm64-v8a/libregrowtopia.so`** (APK `CreativeGrowtopia-V1.50-CPS`). The one-line **descriptions are inferred** from each name and its recovered signature - treat them as guidance, not guarantees.
 
 ### GetInventory
 
@@ -12,7 +12,7 @@ Returns the local inventory as an array of {id, amount, flags}.
 
 <small>Signature reverse-engineered from `0x585380`.</small>
 
-**Returns** `table` — see [InventoryItem](/structs#inventoryitem)
+**Returns** `table` - see [InventoryItem](/structs#inventoryitem)
 
 | field | type |
 |-------|------|
@@ -37,7 +37,7 @@ Returns item metadata by id or name (rarity, type, texture, flags).
 |---|------|----------|
 | 1 | `integer \| string` | yes |
 
-**Returns** `table` — see [ItemInfo](/structs#iteminfo)
+**Returns** `table` - see [ItemInfo](/structs#iteminfo)
 
 | field | type |
 |-------|------|
@@ -66,7 +66,7 @@ Returns metadata for a list/range of items.
 
 <small>Signature reverse-engineered from `0x585af0`; variadic (reads a variable number of arguments).</small>
 
-**Returns** `table` — see [ItemInfo](/structs#iteminfo)
+**Returns** `table` - see [ItemInfo](/structs#iteminfo)
 
 | field | type |
 |-------|------|

@@ -1,4 +1,4 @@
-# CGT V1.50 Lua API — docs site
+# CGT V1.50 Lua API - docs site
 
 VitePress documentation for the CreativeGrowtopia **V1.50** Lua scripting API. Function names,
 parameter types, return-table fields and enum constants are **reverse-engineered from the binary**
@@ -16,7 +16,7 @@ npm run docs:build    # static build into .vitepress/dist
 ## Regenerating the API pages
 
 The category pages, `structs.md`, `enums.md`, `internal.md` and the sidebar are **generated** from
-reverse-engineering data — do not hand-edit them. The hand-written pages are `index.md`,
+reverse-engineering data - do not hand-edit them. The hand-written pages are `index.md`,
 `guide/*.md` and `examples.md`.
 
 Pipeline (run from the repo's `apk/` folder):

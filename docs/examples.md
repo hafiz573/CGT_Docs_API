@@ -1,7 +1,7 @@
 # Examples
 
 Short, **illustrative** snippets built from the recovered signatures. They show *how the API is shaped*,
-not verified game behaviour — adapt them to your build.
+not verified game behaviour - adapt them to your build.
 
 ## Enumerate players
 

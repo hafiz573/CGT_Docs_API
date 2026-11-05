@@ -1,6 +1,6 @@
 # World & tiles
 
-> **How this reference was built.** The V1.50 binary ships **no documentation prose** (no descriptions, examples or signatures). Every **function name, parameter type and return-table field below is reverse-engineered directly from `lib/arm64-v8a/libregrowtopia.so`** (APK `CreativeGrowtopia-V1.50-CPS`). The one-line **descriptions are inferred** from each name and its recovered signature — treat them as guidance, not guarantees.
+> **How this reference was built.** The V1.50 binary ships **no documentation prose** (no descriptions, examples or signatures). Every **function name, parameter type and return-table field below is reverse-engineered directly from `lib/arm64-v8a/libregrowtopia.so`** (APK `CreativeGrowtopia-V1.50-CPS`). The one-line **descriptions are inferred** from each name and its recovered signature - treat them as guidance, not guarantees.
 
 ### GetWorld
 
@@ -12,7 +12,7 @@ Returns the current world as a table (name, size, tile/object counts).
 
 <small>Signature reverse-engineered from `0x5851ac`.</small>
 
-**Returns** `table` — see [World](/structs#world)
+**Returns** `table` - see [World](/structs#world)
 
 | field | type |
 |-------|------|
@@ -41,7 +41,7 @@ Returns the tile at (x, y) as a table (foreground, background, collision, flags)
 | 1 | `integer` | yes |
 | 2 | `integer` | yes |
 
-**Returns** `table` — see [Tile](/structs#tile)
+**Returns** `table` - see [Tile](/structs#tile)
 
 | field | type |
 |-------|------|
@@ -75,7 +75,7 @@ Returns an array of tiles, optionally within a bounding box (x1, y1, x2, y2).
 | 3 | `integer` | no |
 | 4 | `integer` | no |
 
-**Returns** `table` — see [TileShort](/structs#tileshort)
+**Returns** `table` - see [TileShort](/structs#tileshort)
 
 | field | type |
 |-------|------|

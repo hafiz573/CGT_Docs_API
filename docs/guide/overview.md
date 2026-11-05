@@ -25,12 +25,12 @@ GetTile(integer, integer) → table
 - **Coordinates**: world/tile functions take integer tile coordinates; render/screen functions take
   `number` pixel coordinates. Conversions depend on the engine tile size.
 - Functions grouped under [Object & component methods](/api/methods) (`Get`, `Set`, `Create`, …) are
-  generic — they are registered as methods on engine objects/handles rather than standalone globals.
+  generic - they are registered as methods on engine objects/handles rather than standalone globals.
 
 ## What is *not* here
 
 - `MakeRequest` is documented as the **native** V1.50 implementation. On **mydll-patched** builds it is
-  replaced by a custom implementation — see your loader's notes.
+  replaced by a custom implementation - see your loader's notes.
 - Lua standard-library tables (`base`, `io`, `string`, `table`) and engine-internal env entries are listed
   under [Internal environment](/internal), not as game API.
 - The exact runtime `_G` fingerprint for V1.50 is **108 names** (hash `19601d21`), identical on PC and
