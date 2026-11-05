@@ -16,30 +16,65 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: 'Guide', link: '/guide/getting-started' },
-      { text: 'API', link: '/api/local-player' },
+      {
+        // Build switcher: the two views of the API.
+        text: 'Build',
+        items: [
+          { text: 'Native (CGT Ori)', link: '/api/local-player' },
+          { text: 'BooLua (modded)', link: '/boolua/' },
+        ],
+      },
+      { text: 'Native API', link: '/api/local-player' },
+      { text: 'BooLua', link: '/boolua/' },
       { text: 'Structs', link: '/structs' },
-      { text: 'Enums', link: '/enums' },
       { text: 'Examples', link: '/examples' },
     ],
-    sidebar: [
-      {
-        text: 'Guide',
-        items: [
-          { text: 'Getting started', link: '/guide/getting-started' },
-          { text: 'Overview', link: '/guide/overview' },
-          { text: 'Examples', link: '/examples' },
-        ],
-      },
-      { text: 'API reference', collapsed: false, items: sidebarData.api },
-      {
-        text: 'Types',
-        items: [
-          { text: 'Structs', link: '/structs' },
-          { text: 'Enums', link: '/enums' },
-          { text: 'Internal environment', link: '/internal' },
-        ],
-      },
-    ],
+    sidebar: {
+      // BooLua (modded) view
+      '/boolua/': [
+        {
+          text: 'BooLua (modded build)',
+          items: [
+            { text: 'Overview', link: '/boolua/' },
+            { text: 'Added functions', link: '/boolua/functions' },
+            { text: 'Overrides', link: '/boolua/overrides' },
+          ],
+        },
+        {
+          text: 'Native API (CGT Ori)',
+          collapsed: true,
+          items: sidebarData.api,
+        },
+      ],
+      // Native (CGT Ori) view - default for everything else
+      '/': [
+        {
+          text: 'Guide',
+          items: [
+            { text: 'Getting started', link: '/guide/getting-started' },
+            { text: 'Overview', link: '/guide/overview' },
+            { text: 'Examples', link: '/examples' },
+          ],
+        },
+        { text: 'Native API (CGT Ori)', collapsed: false, items: sidebarData.api },
+        {
+          text: 'Types',
+          items: [
+            { text: 'Structs', link: '/structs' },
+            { text: 'Enums', link: '/enums' },
+            { text: 'Internal environment', link: '/internal' },
+          ],
+        },
+        {
+          text: 'BooLua (modded)',
+          items: [
+            { text: 'Overview', link: '/boolua/' },
+            { text: 'Added functions', link: '/boolua/functions' },
+            { text: 'Overrides', link: '/boolua/overrides' },
+          ],
+        },
+      ],
+    },
     outline: { level: [2, 3] },
     search: { provider: 'local' },
     socialLinks: [],
