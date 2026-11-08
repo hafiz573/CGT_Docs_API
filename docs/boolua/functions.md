@@ -225,6 +225,45 @@ MakeRequest(url, body [, method [, contentType]])
 
 Fire-and-forget: it does **not** return a response table. Headers (arg 3 table) are not parsed; Content-Type defaults to `application/json`.
 
+## RunThread
+
+```lua
+RunThread(fn [, ...])
+```
+
+Runs `fn` as a **background coroutine**, Bothax-style: the callback runs alongside the main script, and `Sleep(ms)` works **inside** it without blocking the rest of your script. Extra arguments are forwarded to `fn`.
+
+<small>Availability: **PC + Android**.</small>
+
+**Parameters**
+
+| name | type | required |
+|------|------|----------|
+| `fn` | `function` | yes |
+| `...` | `any` | no (forwarded to `fn`, up to 15) |
+
+```lua
+RunThread(function(label)
+  for i = 1, 5 do
+    MakeRequest(WEBHOOK, '{"content":"'..label..' '..i..'"}')
+    Sleep(1000)                 -- yields this background thread only
+  end
+end, "tick")
+
+-- the main script keeps running; its own Sleep is what drives the background thread
+for i = 1, 20 do Sleep(500) end
+```
+
+**How it works.** The callback runs as a Lua coroutine of your script's own state, driven cooperatively from the loader's `Sleep` hook. It is **not** an OS thread — nothing runs in true parallel, so there are no data races with the game.
+
+**Good to know (current limits):**
+
+- The background thread only advances while your **main script calls `Sleep`**. Give the main script a loop with `Sleep` in it (a tight loop with no `Sleep` starves the background thread).
+- When the **host script ends, its background threads stop** — keep the host alive (e.g. a `while`/`for` loop) for as long as the background work should run.
+- Call `RunThread` from the **top level** of your script, not from inside another `RunThread` callback (nested threads are not driven yet).
+- At most **15 extra arguments** are forwarded.
+- Falls back to a no-op if the loader can't resolve the required Lua internals for your client build (it never crashes the game).
+
 ## PC-only RE / debug helpers
 
 Registered by the **PC `mydll.dll`** only. These are reverse-engineering / debugging tools (they write CSV / log files); not part of normal scripting. <small>Availability: **PC**.</small>
