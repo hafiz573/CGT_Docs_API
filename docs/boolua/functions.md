@@ -264,6 +264,8 @@ for i = 1, 20 do Sleep(500) end
 - At most **15 extra arguments** are forwarded.
 - Falls back to a no-op if the loader can't resolve the required Lua internals for your client build (it never crashes the game).
 
+See also: [Background loop example](/boolua/examples#background-loop-runthread).
+
 ## PC-only RE / debug helpers
 
 Registered by the **PC `mydll.dll`** only. These are reverse-engineering / debugging tools (they write CSV / log files); not part of normal scripting. <small>Availability: **PC**.</small>
