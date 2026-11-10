@@ -203,7 +203,7 @@ Restores the client's original version/protocol defaults (`-4.54` / `71`).
 MakeRequest(url, ...)
 ```
 
-Fire-and-forget HTTP request added by the loader (the stock V1.50 sandbox does **not** expose `MakeRequest`). Two call forms.
+HTTP request with two call forms. Stock V1.50 already has a native `MakeRequest` (the game-native form below); BooLua adds the legacy form on top - see [Overrides](/boolua/overrides#makerequest).
 
 <small>Availability: **PC + Android**.</small>
 
@@ -223,7 +223,7 @@ MakeRequest(url, method, headers, content, timeout)
 MakeRequest(url, body [, method [, contentType]])
 ```
 
-Fire-and-forget: it does **not** return a response table. Headers (arg 3 table) are not parsed; Content-Type defaults to `application/json`.
+Return value: on **PC** the game-native form runs the game's own function and returns its response table (`status`, `error`, ...). The legacy form, and both forms on **Android**, are fire-and-forget (no return value); in that BooLua binding the headers table is not parsed and Content-Type defaults to `application/json`.
 
 ## RunThread
 

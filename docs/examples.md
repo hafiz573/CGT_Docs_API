@@ -46,12 +46,12 @@ end)
 > Event / timer wiring (`Script.On`, `Script.After`, `Script.Every`, `Script.Off`) is engine-specific;
 > confirm the callback contract in your executor.
 
-## HTTP request (BooLua only)
+## HTTP request
 
-The stock V1.50 sandbox has no `MakeRequest`. The [mydll-patched build](/boolua/functions#makerequest)
-adds a fire-and-forget one:
+Stock V1.50 has a native `MakeRequest` (the game-native form). The
+[mydll-patched build](/boolua/functions#makerequest) also accepts the legacy form:
 
 ```lua
-MakeRequest("https://example.com/api", body)          -- legacy form
-MakeRequest("https://example.com/api", "POST", {}, body)  -- game-native form
+local r = MakeRequest("https://example.com/api", "POST", {}, body)  -- game-native form (PC: r.status)
+MakeRequest("https://example.com/api", body)                        -- legacy form, fire-and-forget
 ```

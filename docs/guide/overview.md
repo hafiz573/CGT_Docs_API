@@ -43,8 +43,10 @@ GetTile(integer, integer) → table
 
 ## What is *not* here
 
-- `MakeRequest` is **not** part of the stock V1.50 surface (it is absent from the `_G` dump). The
-  **mydll-patched** build adds its own - see [BooLua](/boolua/functions#makerequest).
+- `MakeRequest` has no page in this reference, but stock V1.50 **does** ship it natively (PC and Android):
+  `MakeRequest(url, method, headers, content, timeout)`; on PC it returns a response table (`status`,
+  `error`, ...). It is left out of the fingerprint below only because the API test groups it with the
+  BooLua bindings, since the **mydll-patched** build overrides it - see [BooLua](/boolua/overrides#makerequest).
 - Lua standard-library tables (`math`, `string`, `table`, ...) are available to scripts but excluded from
   the API fingerprint; `lock`/`sleep`/`unlock` are engine-internal ([Internal environment](/internal)).
 - The runtime `_G` fingerprint is **108 names** (hash `19601d21`), identical on PC and Android - this site
