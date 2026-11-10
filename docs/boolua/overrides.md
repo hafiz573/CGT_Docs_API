@@ -19,7 +19,12 @@ end
 
 ## MakeRequest
 
-The stock V1.50 sandbox does not expose `MakeRequest` at all (it is absent from the `_G` dump). BooLua adds a **fire-and-forget** `MakeRequest` with two call forms - see [Added functions](/boolua/functions#makerequest).
+Stock V1.50 registers a **native** `MakeRequest(url, method, headers, content, timeout)` in the script environment (PC and Android); on PC it returns a response table (`status`, `error`, ...). It is not in the 108-name `_G` fingerprint because the API test lists it with the BooLua bindings. BooLua changes it so the legacy Bothax/mydll form works too:
+
+- **PC**: the game's registration is redirected to a dispatcher. An HTTP verb in arg 2, or a table in arg 3, runs the game's own native function (returns the response); anything else runs BooLua's fire-and-forget version (no return value).
+- **Android**: the native registration is skipped and BooLua's binding handles both forms, fire-and-forget (no return value).
+
+See [Added functions](/boolua/functions#makerequest).
 
 ## io / os sandbox (scriptguard)
 
