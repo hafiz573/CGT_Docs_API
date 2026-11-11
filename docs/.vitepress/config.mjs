@@ -92,8 +92,9 @@ export default defineConfig({
   description: 'Reference for the CreativeGrowtopia Lua scripting API.',
   lastUpdated: true,
   cleanUrls: true,
-  // The version menu replaces VitePress's language switcher, which locales would show.
-  head: [['style', {}, '.VPNavBarTranslations,.VPNavScreenTranslations{display:none}']],
+  // The version menu replaces VitePress's language switcher, which locales would show. !important: the
+  // theme's own scoped rule (.VPNavBarTranslations[data-v-..]{display:flex} at >=1280px) is more specific.
+  head: [['style', {}, '.VPNavBarTranslations,.VPNavScreenTranslations{display:none!important}']],
   locales: {
     root: { label: 'V1.51', lang: 'en-US', title: 'CGT V1.51 Lua API', themeConfig: v151 },
     'v1.50': { label: 'V1.50', lang: 'en-US', link: '/v1.50/', title: 'CGT V1.50 Lua API', themeConfig: v150 },
