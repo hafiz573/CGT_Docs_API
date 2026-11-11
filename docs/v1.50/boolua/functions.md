@@ -1,6 +1,6 @@
 # Added functions
 
-Functions the **mydll** loader registers into the script environment, on top of the [native API](/api/globals). Derived from the loader source, so parameter names and semantics are exact.
+Functions the **mydll** loader registers into the script environment, on top of the [native API](/v1.50/api/globals). Derived from the loader source, so parameter names and semantics are exact.
 
 ## _SetFly
 
@@ -203,7 +203,7 @@ Restores the client's original version/protocol defaults (`-4.54` / `71`).
 MakeRequest(url, ...)
 ```
 
-HTTP request with two call forms. Stock V1.50 already has a native `MakeRequest` (the game-native form below); BooLua adds the legacy form on top - see [Overrides](/boolua/overrides#makerequest).
+HTTP request with two call forms. Stock V1.50 already has a native `MakeRequest` (the game-native form below); BooLua adds the legacy form on top - see [Overrides](/v1.50/boolua/overrides#makerequest).
 
 <small>Availability: **PC + Android**.</small>
 
@@ -264,7 +264,7 @@ for i = 1, 20 do Sleep(500) end
 - At most **15 extra arguments** are forwarded.
 - Falls back to a no-op if the loader can't resolve the required Lua internals for your client build (it never crashes the game).
 
-See also: [Background loop example](/boolua/examples#background-loop-runthread).
+See also: [Background loop example](/v1.50/boolua/examples#background-loop-runthread).
 
 ## PC-only RE / debug helpers
 

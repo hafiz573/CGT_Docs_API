@@ -4,7 +4,7 @@ Named integer constants recovered from the binary.
 
 ## GetTypes
 
-Input-event type codes, returned as a table by [`Input.GetTypes`](/api/input#gettypes).
+Input-event type codes, returned as a table by [`Input.GetTypes`](/v1.50/api/input#gettypes).
 
 | name | value |
 |------|-------|

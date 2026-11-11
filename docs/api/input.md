@@ -1,44 +1,49 @@
 # Input
 
-*Keyboard / pointer input and the input-event type enum.*
-
-> **How this reference was built.** The authoritative list of names and their namespaces comes from a **live in-game `_G` dump** (108 names, hash `19601d21`, identical on PC and Android). Parameter types and return-table fields are **reverse-engineered from `libregrowtopia.so`** (V1.50); one-line **descriptions are inferred**. Treat descriptions as guidance, not guarantees.
+> Text taken verbatim from the API reference embedded in the game binary (`libregrowtopia.so`, CreativeGrowtopia **V1.51**).
 
 Accessed as `Input.<method>`. 2 methods.
 
 ## Input.GetTypes {#gettypes}
 
 ```lua
-Input.GetTypes() -> table
+Input.GetTypes()
 ```
 
-Returns the input-event type constants (enum).
+Returns named engine message type constants for OnInput.
 
-**Returns** `table`
+**Parameters** - No arguments.
 
-| field | type |
-|-------|------|
-| `PointerDown` | `integer` |
-| `PointerUp` | `integer` |
-| `PointerDrag` | `integer` |
-| `PointerMove` | `integer` |
-| `Character` | `integer` |
-| `Key` | `integer` |
+**Returns** - Table: PointerDown, PointerUp, PointerDrag, PointerMove, Character, Key.
 
+**Notes** - Key messages carry the key in x and down/up as y=1/0. Pointer coordinates are logical screen pixels.
+
+**Example**
+
+```lua
+local types = Input.GetTypes()
+Script.On('OnInput', 'keys', function(kind, key, down)
+    if kind == types.Key and down == 1 then Log(key) end
+end)
+Sleep(-1)
+```
 
 ## Input.IsKeyDown {#iskeydown}
 
 ```lua
-Input.IsKeyDown(integer) -> boolean
+Input.IsKeyDown(code)
 ```
 
-Returns whether the given key code is currently held.
+Checks a physical key without synthesizing game input.
 
-**Parameters**
+**Parameters** - Windows virtual-key code 0..255.
 
-| # | Type | Required |
-|---|------|----------|
-| 1 | `integer` | yes |
+**Returns** - Boolean.
 
-**Returns** `boolean`.
+**Notes** - Windows only; returns false outside the game foreground process, during login, native text entry or developer-menu keyboard capture, and on other platforms. Private-input protection remains active even if packet credential protection is disabled. Ordinary gameplay keys remain available. Prefer OnInput for portable game input handlers.
 
+**Example**
+
+```lua
+local shift = Input.IsKeyDown(16)
+```

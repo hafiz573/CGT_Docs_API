@@ -1,107 +1,171 @@
 # Script
 
-*Script lifecycle: events, timers and identity.*
-
-> **How this reference was built.** The authoritative list of names and their namespaces comes from a **live in-game `_G` dump** (108 names, hash `19601d21`, identical on PC and Android). Parameter types and return-table fields are **reverse-engineered from `libregrowtopia.so`** (V1.50); one-line **descriptions are inferred**. Treat descriptions as guidance, not guarantees.
+> Text taken verbatim from the API reference embedded in the game binary (`libregrowtopia.so`, CreativeGrowtopia **V1.51**).
 
 Accessed as `Script.<method>`. 8 methods.
-
-## Script.After {#after}
-
-```lua
-Script.After(...)
-```
-
-Runs a callback once after a delay in milliseconds; returns a timer id.
-
-<small>Name confirmed from the runtime `_G` dump; individual signature not reverse-engineered (shared/ambiguous handler).</small>
-
-
-## Script.CancelTimer {#canceltimer}
-
-```lua
-Script.CancelTimer(...)
-```
-
-Cancels a timer created by After / Every.
-
-<small>Name confirmed from the runtime `_G` dump; individual signature not reverse-engineered (shared/ambiguous handler).</small>
-
-
-## Script.Emit {#emit}
-
-```lua
-Script.Emit(string, string)
-```
-
-Emits a named event to listeners.
-
-<small>Variadic (reads a variable number of arguments).</small>
-
-**Parameters**
-
-| # | Type | Required |
-|---|------|----------|
-| 1 | `string` | yes |
-| 2 | `string` | yes |
-
-
-## Script.Every {#every}
-
-```lua
-Script.Every(...)
-```
-
-Runs a callback repeatedly every interval in milliseconds; returns a timer id.
-
-<small>Name confirmed from the runtime `_G` dump; individual signature not reverse-engineered (shared/ambiguous handler).</small>
-
 
 ## Script.GetID {#getid}
 
 ```lua
-Script.GetID() -> integer
+Script.GetID()
 ```
 
-Returns the current script's id.
+Returns the current script run ID.
 
-**Returns** `integer`.
+**Parameters** - No arguments.
 
+**Returns** - Integer script ID.
+
+**Notes** - IDs identify runs, not filenames.
+
+**Example**
+
+```lua
+Log(Script.GetID())
+```
 
 ## Script.GetTime {#gettime}
 
 ```lua
-Script.GetTime() -> number
+Script.GetTime()
 ```
 
-Returns the current time.
+Returns monotonic milliseconds for measuring intervals.
 
-**Returns** `number`.
+**Parameters** - No arguments.
 
+**Returns** - Number of milliseconds.
 
-## Script.Off {#off}
+**Notes** - Not a wall-clock timestamp.
+
+**Example**
 
 ```lua
-Script.Off(string, string)
+local start = Script.GetTime()
 ```
-
-Removes an event listener registered with On.
-
-**Parameters**
-
-| # | Type | Required |
-|---|------|----------|
-| 1 | `string` | yes |
-| 2 | `string` | yes |
-
 
 ## Script.On {#on}
 
 ```lua
-Script.On(...)
+Script.On(event, name, callback)
 ```
 
-Registers an event listener (event name, callback).
+Registers a named handler; alias of AddHook.
 
-<small>Name confirmed from the runtime `_G` dump; individual signature not reverse-engineered (shared/ambiguous handler).</small>
+**Parameters** - Event string, handler name string, callback function.
 
+**Returns** - Callback reference ID.
+
+**Notes** - Name identifies a handler for Script.Off; registering the same event/name replaces it. Keep callbacks short.
+
+**Example**
+
+```lua
+Script.On('OnUpdate', 'tick', function(dt) end)
+Sleep(-1)
+```
+
+## Script.Off {#off}
+
+```lua
+Script.Off(event, name)
+```
+
+Removes this script's named handlers.
+
+**Parameters** - Event name and handler name.
+
+**Returns** - Number removed.
+
+**Notes** - Queued calls to removed callbacks are skipped.
+
+**Example**
+
+```lua
+Script.Off('OnUpdate', 'tick')
+```
+
+## Script.Emit {#emit}
+
+```lua
+Script.Emit(event, ...)
+```
+
+Queues a custom event to handlers in this script.
+
+**Parameters** - Event string and up to eight strings, numbers or booleans.
+
+**Returns** - Nothing.
+
+**Notes** - Asynchronous; does not broadcast to other scripts. Booleans arrive as 1 or 0.
+
+**Example**
+
+```lua
+Script.On('MyEvent', 'test', function(value) Log(value) end)
+Script.Emit('MyEvent', 'hello')
+Sleep(100)
+```
+
+## Script.After {#after}
+
+```lua
+Script.After(milliseconds, callback)
+```
+
+Schedules one callback while the script remains running.
+
+**Parameters** - Interval 1..86400000 ms; callback receives its timer ID.
+
+**Returns** - Timer ID.
+
+**Notes** - Maximum 256 timers per script. Runs on OnUpdate; missed intervals are skipped. Errors cancel a repeating timer. Do not Sleep inside callbacks.
+
+**Example**
+
+```lua
+local id = Script.After(1000, function(id) Log('timer') end)
+Sleep(-1)
+```
+
+## Script.Every {#every}
+
+```lua
+Script.Every(milliseconds, callback)
+```
+
+Schedules a repeating callback while the script remains running.
+
+**Parameters** - Interval 1..86400000 ms; callback receives its timer ID.
+
+**Returns** - Timer ID.
+
+**Notes** - Maximum 256 timers per script. Runs on OnUpdate; missed intervals are skipped. Errors cancel a repeating timer. Do not Sleep inside callbacks.
+
+**Example**
+
+```lua
+local id = Script.Every(1000, function(id) Log('timer') end)
+Sleep(-1)
+```
+
+## Script.CancelTimer {#canceltimer}
+
+```lua
+Script.CancelTimer(id)
+```
+
+Cancels a pending or repeating timer.
+
+**Parameters** - Timer ID returned by After or Every.
+
+**Returns** - True if found.
+
+**Notes** - Timers disappear when a script stops.
+
+**Example**
+
+```lua
+local id = Script.After(1000, function() end)
+Script.CancelTimer(id)
+```

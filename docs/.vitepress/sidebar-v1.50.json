@@ -2,35 +2,35 @@
   "api": [
     {
       "text": "Globals (26)",
-      "link": "/api/globals"
+      "link": "/v1.50/api/globals"
     },
     {
       "text": "Client (15)",
-      "link": "/api/client"
+      "link": "/v1.50/api/client"
     },
     {
       "text": "Entities (3)",
-      "link": "/api/entities"
+      "link": "/v1.50/api/entities"
     },
     {
       "text": "Input (2)",
-      "link": "/api/input"
+      "link": "/v1.50/api/input"
     },
     {
       "text": "Proton (21)",
-      "link": "/api/proton"
+      "link": "/v1.50/api/proton"
     },
     {
       "text": "Render (8)",
-      "link": "/api/render"
+      "link": "/v1.50/api/render"
     },
     {
       "text": "Script (8)",
-      "link": "/api/script"
+      "link": "/v1.50/api/script"
     },
     {
       "text": "UI (15)",
-      "link": "/api/ui"
+      "link": "/v1.50/api/ui"
     }
   ]
 }

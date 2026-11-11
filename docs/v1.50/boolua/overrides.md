@@ -4,7 +4,7 @@ Native V1.50 behaviour the **mydll** patch changes.
 
 ## GetTile - `extra` field
 
-In the stock build [`GetTile`](/api/globals#gettile) returns `extra = nil`. BooLua replaces that with a **table** carrying harvest progress when available:
+In the stock build [`GetTile`](/v1.50/api/globals#gettile) returns `extra = nil`. BooLua replaces that with a **table** carrying harvest progress when available:
 
 ```lua
 local t = GetTile(x, y)
@@ -24,7 +24,7 @@ Stock V1.50 registers a **native** `MakeRequest(url, method, headers, content, t
 - **PC**: the game's registration is redirected to a dispatcher. An HTTP verb in arg 2, or a table in arg 3, runs the game's own native function (returns the response); anything else runs BooLua's fire-and-forget version (no return value).
 - **Android**: the native registration is skipped and BooLua's binding handles both forms, fire-and-forget (no return value).
 
-See [Added functions](/boolua/functions#makerequest).
+See [Added functions](/v1.50/boolua/functions#makerequest).
 
 ## io / os sandbox (scriptguard)
 

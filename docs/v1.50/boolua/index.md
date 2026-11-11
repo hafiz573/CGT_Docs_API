@@ -1,6 +1,6 @@
 # BooLua (modded build)
 
-**BooLua** is the **mydll-patched** CreativeGrowtopia V1.50 build. It exposes the **entire [native V1.50 API](/api/globals)** *plus* the extra functions on this page, and changes the behaviour of a few native ones (see [Overrides](/boolua/overrides)).
+**BooLua** is the **mydll-patched** CreativeGrowtopia V1.50 build. It exposes the **entire [native V1.50 API](/v1.50/api/globals)** *plus* the extra functions on this page, and changes the behaviour of a few native ones (see [Overrides](/v1.50/boolua/overrides)).
 
 ::: tip Two builds, one site
 Use the **Native (Ori)** section for the stock V1.50 API dumped from `_G`. Use **BooLua** here for everything the loader adds or changes. Everything in Native also works in BooLua.
@@ -8,11 +8,11 @@ Use the **Native (Ori)** section for the stock V1.50 API dumped from `_G`. Use *
 
 ## What BooLua adds
 
-- **[Added functions](/boolua/functions)** - fly, anti-portal, mod-zoom, no-lock tiles, version/protocol bypass, an HTTP `MakeRequest`, and background threads (`RunThread`).
+- **[Added functions](/v1.50/boolua/functions)** - fly, anti-portal, mod-zoom, no-lock tiles, version/protocol bypass, an HTTP `MakeRequest`, and background threads (`RunThread`).
 
-- **[Overrides](/boolua/overrides)** - native behaviour the patch changes (`GetTile.extra`, `MakeRequest`), plus the `io`/`os` sandbox.
+- **[Overrides](/v1.50/boolua/overrides)** - native behaviour the patch changes (`GetTile.extra`, `MakeRequest`), plus the `io`/`os` sandbox.
 
-- **[Examples](/boolua/examples)** - ready-to-adapt scripts (fly, anti-portal, version bypass, fast tile scan, webhook, background loop).
+- **[Examples](/v1.50/boolua/examples)** - ready-to-adapt scripts (fly, anti-portal, version bypass, fast tile scan, webhook, background loop).
 
 ## Platforms
 

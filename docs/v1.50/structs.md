@@ -4,7 +4,7 @@ Table shapes returned by the API, recovered from the binary (the field names and
 
 ## Player
 
-A player (local or remote). `pos` is a nested `{x, y}` table. Returned by [`GetLocal`](/api/globals#getlocal).
+A player (local or remote). `pos` is a nested `{x, y}` table. Returned by [`GetLocal`](/v1.50/api/globals#getlocal).
 
 | field | type |
 |-------|------|
@@ -24,7 +24,7 @@ A player (local or remote). `pos` is a nested `{x, y}` table. Returned by [`GetL
 
 ## LocalState
 
-The local player's physics / movement state. Returned by [`GetLocalState`](/api/client#getlocalstate).
+The local player's physics / movement state. Returned by [`GetLocalState`](/v1.50/api/client#getlocalstate).
 
 | field | type |
 |-------|------|
@@ -40,7 +40,7 @@ The local player's physics / movement state. Returned by [`GetLocalState`](/api/
 
 ## PlayerInfo
 
-Account-level info for the local player. Returned by [`GetPlayerInfo`](/api/globals#getplayerinfo).
+Account-level info for the local player. Returned by [`GetPlayerInfo`](/v1.50/api/globals#getplayerinfo).
 
 | field | type |
 |-------|------|
@@ -50,7 +50,7 @@ Account-level info for the local player. Returned by [`GetPlayerInfo`](/api/glob
 
 ## World
 
-The current world. Returned by [`GetWorld`](/api/globals#getworld).
+The current world. Returned by [`GetWorld`](/v1.50/api/globals#getworld).
 
 | field | type |
 |-------|------|
@@ -63,7 +63,7 @@ The current world. Returned by [`GetWorld`](/api/globals#getworld).
 
 ## Tile
 
-A single tile from `GetTile(x, y)`. Returned by [`GetTile`](/api/globals#gettile).
+A single tile from `GetTile(x, y)`. Returned by [`GetTile`](/v1.50/api/globals#gettile).
 
 | field | type |
 |-------|------|
@@ -79,7 +79,7 @@ A single tile from `GetTile(x, y)`. Returned by [`GetTile`](/api/globals#gettile
 
 ## TileShort
 
-A compact tile entry from the `GetTiles` array. Returned by [`GetTiles`](/api/client#gettiles).
+A compact tile entry from the `GetTiles` array. Returned by [`GetTiles`](/v1.50/api/client#gettiles).
 
 | field | type |
 |-------|------|
@@ -91,7 +91,7 @@ A compact tile entry from the `GetTiles` array. Returned by [`GetTiles`](/api/cl
 
 ## ItemInfo
 
-Item metadata (also each element of `GetItemInfoList`). Returned by [`GetItemInfo`](/api/globals#getiteminfo).
+Item metadata (also each element of `GetItemInfoList`). Returned by [`GetItemInfo`](/v1.50/api/globals#getiteminfo).
 
 | field | type |
 |-------|------|
@@ -111,7 +111,7 @@ Item metadata (also each element of `GetItemInfoList`). Returned by [`GetItemInf
 
 ## InventoryItem
 
-One inventory slot from the `GetInventory` array. Returned by [`GetInventory`](/api/globals#getinventory).
+One inventory slot from the `GetInventory` array. Returned by [`GetInventory`](/v1.50/api/globals#getinventory).
 
 | field | type |
 |-------|------|
@@ -121,7 +121,7 @@ One inventory slot from the `GetInventory` array. Returned by [`GetInventory`](/
 
 ## Object
 
-One world object from the `GetObjects` array. Returned by [`GetObjects`](/api/client#getobjects).
+One world object from the `GetObjects` array. Returned by [`GetObjects`](/v1.50/api/client#getobjects).
 
 | field | type |
 |-------|------|
@@ -134,7 +134,7 @@ One world object from the `GetObjects` array. Returned by [`GetObjects`](/api/cl
 
 ## Settings
 
-Game settings. Returned by [`GetSettings`](/api/client#getsettings).
+Game settings. Returned by [`GetSettings`](/v1.50/api/client#getsettings).
 
 | field | type |
 |-------|------|
@@ -143,7 +143,7 @@ Game settings. Returned by [`GetSettings`](/api/client#getsettings).
 
 ## Camera
 
-The render camera. Returned by [`GetCamera`](/api/client#getcamera).
+The render camera. Returned by [`GetCamera`](/v1.50/api/client#getcamera).
 
 | field | type |
 |-------|------|
@@ -155,7 +155,7 @@ The render camera. Returned by [`GetCamera`](/api/client#getcamera).
 
 ## Screen
 
-Screen dimensions. Returned by [`GetScreen`](/api/client#getscreen).
+Screen dimensions. Returned by [`GetScreen`](/v1.50/api/client#getscreen).
 
 | field | type |
 |-------|------|
