@@ -1,0 +1,65 @@
+[
+  {
+    "text": "Guide",
+    "items": [
+      {
+        "text": "Getting started",
+        "link": "/guide/getting-started"
+      },
+      {
+        "text": "What's new in V1.51",
+        "link": "/whats-new"
+      }
+    ]
+  },
+  {
+    "text": "Game API",
+    "items": [
+      {
+        "text": "Globals (33)",
+        "link": "/api/globals"
+      },
+      {
+        "text": "Client (15)",
+        "link": "/api/client"
+      },
+      {
+        "text": "Entities (3)",
+        "link": "/api/entities"
+      },
+      {
+        "text": "Input (2)",
+        "link": "/api/input"
+      },
+      {
+        "text": "Proton (21)",
+        "link": "/api/proton"
+      },
+      {
+        "text": "Render (8)",
+        "link": "/api/render"
+      },
+      {
+        "text": "Script (8)",
+        "link": "/api/script"
+      },
+      {
+        "text": "UI (15)",
+        "link": "/api/ui"
+      },
+      {
+        "text": "Hook events (15)",
+        "link": "/api/hooks"
+      }
+    ]
+  },
+  {
+    "text": "Lua",
+    "items": [
+      {
+        "text": "Standard library",
+        "link": "/lua"
+      }
+    ]
+  }
+]

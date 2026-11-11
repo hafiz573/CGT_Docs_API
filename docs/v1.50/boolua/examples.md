@@ -1,6 +1,6 @@
 # BooLua examples
 
-Practical snippets for the **mydll-patched** build, using the [added functions](/boolua/functions) and [overrides](/boolua/overrides). They combine the native API with BooLua extras.
+Practical snippets for the **mydll-patched** build, using the [added functions](/v1.50/boolua/functions) and [overrides](/v1.50/boolua/overrides). They combine the native API with BooLua extras.
 
 ::: warning
 These use loader-specific functions; behaviour depends on your mydll version. State functions return integer `0`/`1`, so compare with `== 1`.
@@ -97,5 +97,5 @@ end
 ```
 
 ::: tip
-The background thread advances while the **main script calls `Sleep`**, and stops when the host script ends — so keep a `Sleep`-driven loop alive for as long as the background work should run. Call `RunThread` from the top level, not from inside another `RunThread` callback. See the [`RunThread` reference](/boolua/functions#runthread) for the full contract.
+The background thread advances while the **main script calls `Sleep`**, and stops when the host script ends — so keep a `Sleep`-driven loop alive for as long as the background work should run. Call `RunThread` from the top level, not from inside another `RunThread` callback. See the [`RunThread` reference](/v1.50/boolua/functions#runthread) for the full contract.
 :::

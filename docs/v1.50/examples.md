@@ -42,14 +42,14 @@ Script.On("render", function()        -- Script.* events
 end)
 ```
 
-> `Input.GetTypes()` returns the input-event [enum](/enums#gettypes) (`PointerDown`, `Key`, ...).
+> `Input.GetTypes()` returns the input-event [enum](/v1.50/enums#gettypes) (`PointerDown`, `Key`, ...).
 > Event / timer wiring (`Script.On`, `Script.After`, `Script.Every`, `Script.Off`) is engine-specific;
 > confirm the callback contract in your executor.
 
 ## HTTP request
 
 Stock V1.50 has a native `MakeRequest` (the game-native form). The
-[mydll-patched build](/boolua/functions#makerequest) also accepts the legacy form:
+[mydll-patched build](/v1.50/boolua/functions#makerequest) also accepts the legacy form:
 
 ```lua
 local r = MakeRequest("https://example.com/api", "POST", {}, body)  -- game-native form (PC: r.status)

@@ -1,8 +1,6 @@
 # Render
 
-*Immediate-mode drawing primitives for the current frame.*
-
-> **How this reference was built.** The authoritative list of names and their namespaces comes from a **live in-game `_G` dump** (108 names, hash `19601d21`, identical on PC and Android). Parameter types and return-table fields are **reverse-engineered from `libregrowtopia.so`** (V1.50); one-line **descriptions are inferred**. Treat descriptions as guidance, not guarantees.
+> Text taken verbatim from the API reference embedded in the game binary (`libregrowtopia.so`, CreativeGrowtopia **V1.51**).
 
 Accessed as `Render.<method>`. 8 methods.
 
@@ -12,48 +10,21 @@ Accessed as `Render.<method>`. 8 methods.
 Render.Begin()
 ```
 
-Begins a render block for the current frame.
+Starts building a replacement overlay without changing the displayed drawings.
 
+**Parameters** - No arguments.
 
-## Render.Circle {#circle}
+**Returns** - Nothing.
 
-```lua
-Render.Circle()
-```
+**Notes** - Pair with Render.Present to publish a complete frame atomically. A new Begin discards any unpublished shapes.
 
-Draws a circle.
-
-
-## Render.Clear {#clear}
+**Example**
 
 ```lua
-Render.Clear(...)
+Render.Begin()
+Render.Text({x=10,y=10,text='New frame'})
+Render.Present()
 ```
-
-Clears the current frame's draw list.
-
-<small>Name confirmed from the runtime `_G` dump; individual signature not reverse-engineered (shared/ambiguous handler).</small>
-
-
-## Render.Image {#image}
-
-```lua
-Render.Image(...)
-```
-
-Draws an image / texture.
-
-<small>Name confirmed from the runtime `_G` dump; individual signature not reverse-engineered (shared/ambiguous handler).</small>
-
-
-## Render.Line {#line}
-
-```lua
-Render.Line()
-```
-
-Draws a line.
-
 
 ## Render.Present {#present}
 
@@ -61,25 +32,143 @@ Draws a line.
 Render.Present()
 ```
 
-Flushes / presents the current render frame.
+Atomically publishes drawings collected since Render.Begin.
 
+**Parameters** - No arguments.
+
+**Returns** - True if an overlay was being built; false otherwise.
+
+**Notes** - Keeps the previous overlay visible until publication, avoiding partial redraws between Lua calls.
+
+**Example**
+
+```lua
+Render.Begin()
+Render.Rect({x=0,y=0,x2=50,y2=50})
+Render.Present()
+```
+
+## Render.Clear {#clear}
+
+```lua
+Render.Clear()
+```
+
+Clears this script's retained overlay drawings.
+
+**Parameters** - No arguments.
+
+**Returns** - Nothing.
+
+**Notes** - Drawings persist until cleared or the script stops. Call once at the start of an overlay refresh.
+
+**Example**
+
+```lua
+Render.Clear()
+```
+
+## Render.Line {#line}
+
+```lua
+Render.Line(properties)
+```
+
+Appends a line to this script's overlay.
+
+**Parameters** - x/y and x2/y2 endpoints; thickness. Optional r/g/b/a channels 0..255 and world=true.
+
+**Returns** - Nothing.
+
+**Notes** - Up to 4096 drawings; overlays draw above the game and below custom windows. world converts endpoints from world pixels; circle radius and line thickness remain screen pixels. No worker-thread graphics calls.
+
+**Example**
+
+```lua
+Render.Line({x=10,y=10,x2=100,y2=80})
+Sleep(-1)
+```
 
 ## Render.Rect {#rect}
 
 ```lua
-Render.Rect()
+Render.Rect(properties)
 ```
 
-Draws a rectangle.
+Appends a rect to this script's overlay.
 
+**Parameters** - x/y and x2/y2 corners; filled and thickness. Optional r/g/b/a channels 0..255 and world=true.
+
+**Returns** - Nothing.
+
+**Notes** - Up to 4096 drawings; overlays draw above the game and below custom windows. world converts endpoints from world pixels; circle radius and line thickness remain screen pixels. No worker-thread graphics calls.
+
+**Example**
+
+```lua
+Render.Rect({x=20,y=20,x2=150,y2=90,filled=true})
+Sleep(-1)
+```
+
+## Render.Circle {#circle}
+
+```lua
+Render.Circle(properties)
+```
+
+Appends a circle to this script's overlay.
+
+**Parameters** - x/y center, radius (screen pixels), filled and thickness. Optional r/g/b/a channels 0..255 and world=true.
+
+**Returns** - Nothing.
+
+**Notes** - Up to 4096 drawings; overlays draw above the game and below custom windows. world converts endpoints from world pixels; circle radius and line thickness remain screen pixels. No worker-thread graphics calls.
+
+**Example**
+
+```lua
+Render.Circle({x=100,y=100,radius=25})
+Sleep(-1)
+```
 
 ## Render.Text {#text}
 
 ```lua
-Render.Text(...)
+Render.Text(properties)
 ```
 
-Draws text at a position.
+Appends a text to this script's overlay.
 
-<small>Name confirmed from the runtime `_G` dump; individual signature not reverse-engineered (shared/ambiguous handler).</small>
+**Parameters** - x/y origin and text string. Optional r/g/b/a channels 0..255 and world=true.
 
+**Returns** - Nothing.
+
+**Notes** - Up to 4096 drawings; overlays draw above the game and below custom windows. world converts endpoints from world pixels; circle radius and line thickness remain screen pixels. No worker-thread graphics calls.
+
+**Example**
+
+```lua
+Render.Text({x=20,y=20,text='Hello'})
+Sleep(-1)
+```
+
+## Render.Image {#image}
+
+```lua
+Render.Image(properties)
+```
+
+Appends a image to this script's overlay.
+
+**Parameters** - file relative asset path; x/y and x2/y2 corners. Optional r/g/b/a channels 0..255 and world=true.
+
+**Returns** - Nothing.
+
+**Notes** - Up to 4096 drawings; overlays draw above the game and below custom windows. world converts endpoints from world pixels; circle radius and line thickness remain screen pixels. No worker-thread graphics calls.
+
+**Example**
+
+```lua
+Render.Image({x=10,y=10,x2=74,y2=74,file='interface/large/cross.rttex'})
+Sleep(-1)
+```
