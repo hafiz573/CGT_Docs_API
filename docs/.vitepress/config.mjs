@@ -75,10 +75,25 @@ const v151 = {
     { text: 'Guide', link: '/guide/getting-started' },
     { text: 'API', link: '/api/globals' },
     { text: 'Hooks', link: '/api/hooks' },
+    { text: 'BooLua', link: '/boolua/' },
     { text: "What's new", link: '/whats-new' },
     versionMenu('V1.51'),
   ],
-  sidebar: { '/': sidebar151 },
+  sidebar: {
+    '/': [
+      ...sidebar151,
+      {
+        text: 'BooLua (modded)',
+        collapsed: false,
+        items: [
+          { text: 'Overview', link: '/boolua/' },
+          { text: 'Added functions', link: '/boolua/functions' },
+          { text: 'Overrides', link: '/boolua/overrides' },
+          { text: 'Examples', link: '/boolua/examples' },
+        ],
+      },
+    ],
+  },
   footer: {
     message: 'Text from the API reference embedded in libregrowtopia.so (V1.51).',
     copyright: 'Unofficial community documentation.',
