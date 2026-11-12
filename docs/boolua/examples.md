@@ -76,3 +76,33 @@ MakeRequest("https://discord.com/api/webhooks/XXX/YYY", "POST", {["Content-Type"
 
 > Never hard-code a real webhook URL in a shared script.
 
+## Run an encrypted script (load)
+
+Stock CGT has no `load`, so a script cannot decrypt and run itself. BooLua [opens `load`](/boolua/overrides#standard-library-and-sandbox), which accepts source text and Lua 5.4 bytecode.
+
+```lua
+-- XOR + hex wrapper: decrypt the payload, then run it with load
+local KEY = "mykey"
+local function xor(s)
+  local o = {}
+  for i = 1, #s do o[i] = string.char(s:byte(i) ~ KEY:byte((i - 1) % #KEY + 1)) end
+  return table.concat(o)
+end
+
+-- encrypt once and copy the printed hex into ENC:
+-- LogToConsole((xor([[LogToConsole("hello")]]):gsub(".", function(c) return ("%02x"):format(c:byte()) end)))
+
+local ENC = "..."
+local src = xor((ENC:gsub("..", function(h) return string.char(tonumber(h, 16)) end)))
+local fn, err = load(src, "=encrypted", "t")
+assert(fn, err)
+fn()
+```
+
+- Obfuscated scripts written for Lua 5.1 that call `loadstring` work after `loadstring = load` at the top. Ones that need `getfenv`/`setfenv` do not run (Lua 5.4 has neither).
+- Bytecode: build it inside CGT with `string.dump(fn, true)` and run it with `load(bytes)`. `luac` output from another Lua build may be rejected.
+- Files encrypted in a format that only one executor can decrypt (for example Bothax) do not run in CGT.
+
+::: danger
+You cannot read an encrypted script before it runs, and it can call `MakeRequest` with your account data. Only run encrypted scripts from people you trust. The encryption only hides the code: anyone who runs the script can replace `load` with their own version and print the decrypted source.
+:::
