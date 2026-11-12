@@ -76,6 +76,30 @@ MakeRequest("https://discord.com/api/webhooks/XXX/YYY", "POST", {["Content-Type"
 
 > Never hard-code a real webhook URL in a shared script.
 
+## Background loop (RunThread)
+
+```lua
+-- run a task in the background; Sleep works inside it without freezing the script
+local WEBHOOK = "https://discord.com/api/webhooks/XXX/YYY"
+
+RunThread(function()
+  for i = 1, 5 do
+    MakeRequest(WEBHOOK, ('{"content":"bg tick %d"}'):format(i))
+    Sleep(1000)                 -- yields only this background thread
+  end
+end)
+
+-- the main script keeps going; its Sleep is what ticks the background thread
+for i = 1, 20 do
+  -- ... main logic ...
+  Sleep(500)
+end
+```
+
+::: tip
+The background thread advances while the **main script calls `Sleep`**, and stops when the host script ends — so keep a `Sleep`-driven loop alive for as long as the background work should run. Call `RunThread` from the top level, not from inside another `RunThread` callback. See the [`RunThread` reference](/boolua/functions#runthread) for the full contract.
+:::
+
 ## Run an encrypted script (load)
 
 Stock CGT has no `load`, so a script cannot decrypt and run itself. BooLua [opens `load`](/boolua/overrides#standard-library-and-sandbox), which accepts source text and Lua 5.4 bytecode.
