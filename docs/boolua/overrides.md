@@ -36,11 +36,9 @@ See [Added functions](/boolua/functions#makerequest).
 
 ## RunThread
 
-V1.50 BooLua shipped its own cooperative `RunThread(fn, ...)`. V1.51 has a [native `RunThread`](/api/globals#runthread) (real worker thread, own sandboxed state, listed in the Scripts tab), and BooLua uses that one on both platforms. Differences for old scripts:
+V1.51 has a [native `RunThread`](/api/globals#runthread): a real worker thread with its **own** sandboxed state, so it cannot see the caller's globals, cannot capture tables or functions, and ignores extra arguments. BooLua **replaces it** with the [Bothax-style `RunThread(fn, ...)`](/boolua/functions#runthread) on both platforms: the callback is a coroutine of your own script, shares its globals and tables, and receives the extra arguments.
 
-- extra arguments after `fn` are **not** forwarded - capture them as upvalues;
-- the task gets **copies** of captured `nil`/boolean/number/string values; tables and functions cannot be captured;
-- the task survives the caller returning (stop it separately, or with Stop All).
+What you give up: the native task's name argument, its own entry in the Scripts tab, and running after the host script ends (BooLua threads stop with their script).
 
 ## Standard library and sandbox
 
