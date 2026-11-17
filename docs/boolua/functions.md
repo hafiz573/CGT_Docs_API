@@ -1,6 +1,6 @@
 # Added functions
 
-Functions the **mydll** loader registers into the script environment, on top of the [native V1.51 API](/api/globals). Derived from the loader source, so parameter names and semantics are exact.
+Functions the **mydll** loader registers into the script environment, on top of the [native V1.52 API](/api/globals). Derived from the loader source, so parameter names and semantics are exact.
 
 ## _SetFly
 
@@ -193,7 +193,7 @@ Returns the currently active (possibly overridden) protocol number.
 _ResetVersion()
 ```
 
-Restores the client's original version/protocol defaults (`-4.49` / `71` on V1.51).
+Restores the client's original version/protocol defaults (`-4.48` / `71` on V1.52).
 
 <small>Availability: **Android**.</small>
 
@@ -203,7 +203,7 @@ Restores the client's original version/protocol defaults (`-4.49` / `71` on V1.5
 MakeRequest(url, ...)
 ```
 
-HTTP request with two call forms. Stock V1.51 already has a [native `MakeRequest`](/api/globals#makerequest) (the game-native form below); BooLua adds the legacy form on top - see [Overrides](/boolua/overrides#makerequest).
+HTTP request with two call forms. Stock V1.52 already has a [native `MakeRequest`](/api/globals#makerequest) (the game-native form below); BooLua adds the legacy form on top - see [Overrides](/boolua/overrides#makerequest).
 
 <small>Availability: **PC + Android**.</small>
 
@@ -234,7 +234,7 @@ RunThread(fn [, ...])
 Runs `fn` as a **background coroutine**, Bothax-style: the callback runs alongside the main script, and `Sleep(ms)` works **inside** it without blocking the rest of your script. Extra arguments are forwarded to `fn`.
 
 ::: info Replaces the game's RunThread
-V1.51 ships its own [`RunThread(functionOrSource [, name])`](/api/globals#runthread) (separate sandboxed state, no shared globals, no extra arguments). BooLua swaps it for this Bothax-style one on both platforms, so V1.50 scripts keep working. See [Overrides](/boolua/overrides#runthread).
+V1.52 ships its own [`RunThread(functionOrSource [, name])`](/api/globals#runthread) (separate sandboxed state, no shared globals, no extra arguments). BooLua swaps it for this Bothax-style one on both platforms, so V1.50 scripts keep working. See [Overrides](/boolua/overrides#runthread).
 :::
 
 <small>Availability: **PC + Android**.</small>

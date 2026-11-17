@@ -1,8 +1,30 @@
 # Render
 
-> Text taken verbatim from the API reference embedded in the game binary (`libregrowtopia.so`, CreativeGrowtopia **V1.51**).
+> Text taken verbatim from the API reference embedded in the game binary (`libregrowtopia.so`, CreativeGrowtopia **V1.52**).
 
-Accessed as `Render.<method>`. 8 methods.
+Accessed as `Render.<method>`. 9 methods.
+
+## Render.Submit {#submit}
+
+```lua
+Render.Submit(shapes [, layer='overlay' [, sampleTimeMS [, viewGeneration]]])
+```
+
+Atomically replace this script's drawings with one validated batch and one publication lock.
+
+**Parameters** - Dense array of up to 4096 tables. kind=line/rect/circle/text/image (default line); x/y/x2/y2, r/g/b/a, world and filled booleans, radius/thickness. Optional dx/dy total translation, motionMS 0..250, endAlpha -1..255, lifeMS -1 (persistent) or 0..60000. Layer is overlay or world; world supports line/rect/circle only and draws before names/GUI. sampleTimeMS is a recent Script.GetTime() sample; viewGeneration is from Client.GetView().
+
+**Returns** - True on publication; false when optional viewGeneration became stale. Invalid batches raise an error without replacing the prior frame.
+
+**Notes** - Generic interpolation only: Lua supplies every endpoint and lifetime. No native particle simulation or collision. World batches share an 8192-shape budget and are hidden after a world/local-avatar generation change until resubmitted. Stop removes all drawings. motionMS is a bounded forward drawing window, not a timer callback. The optional timestamp compensates for Lua simulation and batch parsing time (at most 1000 ms old). Submit supersedes any pending Begin/Present frame.
+
+**Example**
+
+```lua
+local v=Client.GetView()
+Render.Submit({{kind='line',x=10,y=10,x2=20,y2=30,dx=0,dy=30,motionMS=40}}, 'world', Script.GetTime(), v.generation)
+Sleep(-1)
+```
 
 ## Render.Begin {#begin}
 

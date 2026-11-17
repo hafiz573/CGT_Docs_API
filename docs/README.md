@@ -4,7 +4,8 @@ VitePress documentation for the CreativeGrowtopia Lua scripting API, one section
 
 | Version | URL | Source |
 |---------|-----|--------|
-| V1.51 (latest) | `/` | Verbatim from the API reference table embedded in `libregrowtopia.so` |
+| V1.52 (latest) | `/` | Verbatim from the API reference table embedded in `libregrowtopia.so`, plus BooLua |
+| V1.51 | `/v1.51/` | Same, frozen (incl. its BooLua pages) |
 | V1.50 | `/v1.50/` | Reverse-engineered signatures + a live `_G` dump (descriptions inferred), plus BooLua |
 
 Each version is a VitePress **locale**, so it has its own nav/sidebar and its own search index:
@@ -24,9 +25,9 @@ npm run docs:build    # static build into .vitepress/dist
 Latest version (root), from the doc table embedded in the binary:
 
 ```bash
-python -I -c "import zipfile;open('re/ori_V1.51.so','wb').write(zipfile.ZipFile('CreativeGrowtopia-V1.51-CPS.apk').read('lib/arm64-v8a/libregrowtopia.so'))"
-python -I re/extract_doctable.py re/ori_V1.51.so re/doctable_V1.51.json
-python -I re/gen_docs_doctable.py 1.51 1.50     # version, previous version (for "What's new")
+python -I -c "import zipfile;open('re/ori_V1.52.so','wb').write(zipfile.ZipFile('CreativeGrowtopia-V1.52-CPS.apk').read('lib/arm64-v8a/libregrowtopia.so'))"
+python -I re/extract_doctable.py re/ori_V1.52.so re/doctable_V1.52.json
+python -I re/gen_docs_doctable.py 1.52 1.51     # version, previous version (for "What's new")
 ```
 
 `docs/boolua/` (BooLua = the mydll-patched build) is hand-written from the mydll source; the generator
@@ -37,8 +38,9 @@ generation (BooLua RunThread, MakeRequest) - re-running it overwrites those edit
 
 ## Adding a new version
 
-1. `git mv` the root pages (`index.md`, `guide/`, `api/`, `lua.md`, `whats-new.md`) into `docs/v<old>/`,
-   prefix their absolute links with `/v<old>/`, and move its locale in `.vitepress/config.mjs` to `'v<old>'`.
+1. Copy the root pages (`index.md`, `guide/`, `api/`, `boolua/`, `lua.md`, `whats-new.md`) into `docs/v<old>/`,
+   prefix their absolute links (and the links in `.vitepress/sidebar-v<old>.json`) with `/v<old>/`, and add a
+   `'v<old>'` locale in `.vitepress/config.mjs` (copy of the root theme config with prefixed links).
 2. Dump the new doc table and run `gen_docs_doctable.py <new> <old>` for the root.
 3. Add the version to `versions` in `config.mjs` and build.
 

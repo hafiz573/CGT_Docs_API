@@ -1,95 +1,108 @@
-# What's new in V1.51
+# What's new in V1.52
 
-Changes to the Lua API since **V1.50**, from diffing the API reference embedded in both binaries. The V1.50 docs stay available under [V1.50](/v1.50/).
+Changes to the Lua API since **V1.51**, from diffing the API reference embedded in both binaries. The V1.51 docs stay available under [V1.51](/v1.51/).
 
-## Added (2)
+## Added (10)
 
-- `RunThread(functionOrSource [, name])` - Start another Lua task on its own worker thread without stalling the current script or gameplay.
-- `FlyPath(tileX, tileY [, speed=160])` - Fly along a clear route through open space, without walking or jump animations.
+- `Render.Submit(shapes [, layer='overlay' [, sampleTimeMS [, viewGeneration]]])` - Atomically replace this script's drawings with one validated batch and one publication lock.
+- `Client.GetView()` - Read the latest camera/world viewport snapshot without acquiring the game lock.
+- `Client.GetCollisionMap()` - Read a compact tile collision snapshot for custom Lua simulation.
+- `Client.SetRain(settings={})` - Configure script-owned native rain, simulated and batched every rendered world frame.
+- `Client.Lightning(settings={})` - Trigger native branching lightning with an optional flash and delayed thunder.
+- `Client.StopRain()` - Remove this script's native rain, splashes, lightning and pending thunder.
+- `UI.BeginTabBar(id, properties={})` - Declares a retained tab bar and opens its declaration scope.
+- `UI.EndTabBar()` - Closes a retained tab-bar declaration scope.
+- `UI.BeginTabItem(id, properties={})` - Declares a retained tab and opens its content scope.
+- `UI.EndTabItem()` - Closes a retained tab-content declaration scope.
 
-## Changed (3)
+## Changed (6)
 
-### CheckPath
-
-**description**
-
-- V1.50: Ask A* whether an open path exists from the local player's tile.
-- V1.51: Check whether the avatar can walk and jump to a standing position near the target.
-
-**notes**
-
-- V1.50: Does not move the avatar. Requires avatar/map and in-bounds coordinates.
-- V1.51: Does not move the avatar. Requires avatar/map and in-bounds coordinates. Avoids hazardous tiles.
-
-### FindPath
-
-**description**
-
-- V1.50: Queue the client's OnFindPath movement operation.
-- V1.51: Walk and jump toward a reachable standing position near the target.
-
-**params**
-
-- V1.50: tileX,tileY: integer tile target. milliseconds: nonnegative integer step delay, default 5.
-- V1.51: tileX,tileY: integer tile target. milliseconds: accepted for compatibility but currently unused.
-
-**notes**
-
-- V1.50: Unlike WalkTo, uses tiles. Requires a loaded world. CheckPath can be used first.
-- V1.51: Replans if movement stalls. Requires a loaded world. CheckPath can be used first.
-
-**example**
-
-```lua
--- V1.50
-if CheckPath(10, 20) then FindPath(10, 20, 20) end
--- V1.51
-if CheckPath(10, 20) then FindPath(10, 20) end
-```
-
-### EditToggle
-
-**category**
-
-- V1.50: Scripts and hooks
-- V1.51: Client
-
-**signature**
-
-- V1.50: EditToggle(cheatName, enabled)
-- V1.51: EditToggle(toggleName, enabled)
-
-**description**
-
-- V1.50: Reserved developer-toggle binding.
-- V1.51: Set an allowed Developer Menu > Misc checkbox.
-
-**params**
-
-- V1.50: At least two arguments; intended string name and boolean enabled.
-- V1.51: toggleName: exact, case-sensitive label: Tile Prediction, Ghost Fly, Enable Frame Counter, VSync (native Windows only), or Indexed sprite rendering. enabled: boolean true or false; exactly two arguments.
+### GetTile
 
 **returns**
 
-- V1.50: No values.
-- V1.51: Boolean: true if the change was queued; false for unknown, unavailable or forbidden toggles. Invalid argument types raise a Lua error.
+- V1.51: Table: fg, bg, collidable, x, y, coltype, locktile, flags. extra is nil, so that key is absent.
+- V1.52: Table: fg, bg, collidable, x, y, coltype, locktile, flags, extra. extra is nil without native tile-extra data; otherwise it is a copied TileExtra table.
 
 **notes**
 
-- V1.50: Currently a stub: no action and no type validation beyond argument count.
-- V1.51: Applied on the next game update, even if the script has finished or the menu is closed. Thread safe; repeated writes before an update use the latest value per checkbox. Changes are session-wide and are not automatically restored when the script stops. Disable Credential Protection is deliberately unsupported for either value; no security confirmation can be bypassed.
+- V1.51: Raises an error outside a world or out of bounds. Tile extra data is not exposed. Editing the result does not edit the map.
+- V1.52: Raises an error outside a world or out of bounds. extra common fields: type (native enum), flags (native type-specific byte), name, text, id (strings), data (raw type-specific integer). Trees/providers: growth, growtime, remaining (seconds), ready, harvestable. Readiness means maturity, not permission to harvest; providers require growth > growtime as in the client. Trees also have seedid, itemid (fruit ID), fruitcount. Locks/VIP doors: owner, access (1-based user IDs), flags (lock flags byte). Vending: itemid, price (positive=WL/item, negative=items/WL). Display blocks/mannequins/art/storage/freezers: itemid; battle cages: itemid; item suckers with loaded extended data: itemid, count, sucking. Other type-specific fields can be absent. Editing a snapshot never edits the map; read it again for fresh growth/state. Client.GetTiles remains the lightweight bulk API without extras.
 
 **example**
 
 ```lua
--- V1.50
-EditToggle("example", true) -- currently does nothing
 -- V1.51
-assert(EditToggle('Ghost Fly', true))
-assert(EditToggle('Tile Prediction', false))
--- EditToggle('Ghost Fly', false) -- turn it off
--- EditToggle('Disable Credential Protection', true) returns false
+local p = GetLocal().pos
+local tile = GetTile(math.floor(p.x / 32), math.floor(p.y / 32))
+Log("FG=" .. tile.fg .. " BG=" .. tile.bg)
+-- V1.52
+local tile = GetTile(10, 20)
+local extra = tile.extra
+if extra and extra.type == 4 then
+  Log(string.format("Fruit ID %d, count %d, ready=%s, seconds left=%d", extra.itemid, extra.fruitcount, tostring(extra.ready), extra.remaining))
+end
 ```
+
+### UI.Create
+
+**params**
+
+- V1.51: Kind: window, text, button, checkbox, slider, input, combo, progress, separator, sameline. ID string and property table.
+- V1.52: Kind: window, text, button, checkbox, slider, input, combo, progress, separator, sameline, tabbar, tabitem. ID string and property table.
+
+**notes**
+
+- V1.51: Properties are strings, finite numbers or booleans. Common: parent (window ID), text, visible, enabled, width, height, value. IDs are scoped to this script. Up to 256 controls. Windows require no parent; other controls need a window parent.
+- V1.52: Properties are strings, finite numbers or booleans. Common: parent, text, visible, enabled, width, height, value. IDs are scoped to this script. Up to 256 controls. Tabs require a tab-bar parent; tab bars require a window/tab-item parent. Ordinary controls use a window/tab-item parent, inferred inside BeginTabItem scopes. UI is declared once and rendered each frame; Lua workers never call ImGui directly.
+
+### UI.Remove
+
+**description**
+
+- V1.51: Removes a control and its direct children.
+- V1.52: Removes a control and all its descendants.
+
+**notes**
+
+- V1.51: Removing a window removes all its controls.
+- V1.52: Removing a window/tab bar also removes its nested tabs and their child controls.
+
+### UI.Clear
+
+**notes**
+
+- V1.51: Does not remove other scripts' windows or native dialogs.
+- V1.52: Also resets this script's tab declaration scopes. Does not remove other scripts' windows or native dialogs.
+
+### Client.PlaySound
+
+**description**
+
+- V1.51: Plays a local game sound.
+- V1.52: Plays a local game sound using the normal cache/bundled asset resolver.
+
+**notes**
+
+- V1.51: Queued for the game thread; true means accepted, not completed. OnClientCommand(kind, target, success) reports completion (success is 1 or 0). Changes are local, may be overwritten by the server, and are not automatically restored on stop. Missing assets follow the engine's normal error handling.
+- V1.52: Queued for the game thread; true means accepted, not completed. Keep the script alive until its command is processed. OnClientCommand('sound', originalPath, success) reports whether the backend started playback (1 or 0). Honors the game's sound setting; missing assets, muted audio or a failed backend can report 0. Does not download missing sounds or loop playback.
+
+**example**
+
+```lua
+-- V1.51
+Client.PlaySound('audio/dialog_open.wav')
+-- V1.52
+Client.PlaySound('audio/dialog_open.wav')
+Sleep(-1)
+```
+
+### OnUI
+
+**params**
+
+- V1.51: Control ID, event (click/change/close), edited value (string or number; boolean is 0/1).
+- V1.52: Control ID, event (click/change/close/select), edited value (string or number; boolean is 0/1). Tab activation uses select with value=1.
 
 ## Removed (0)
 

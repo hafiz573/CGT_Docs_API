@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import sidebar152 from './sidebar-v1.52.json' with { type: 'json' }
 import sidebar151 from './sidebar-v1.51.json' with { type: 'json' }
 import sidebar150 from './sidebar-v1.50.json' with { type: 'json' }
 
@@ -10,7 +11,8 @@ const base = process.env.DOCS_BASE || '/'
 // local-search index, so search only covers the version being read.
 // Latest version lives at the root; older ones under /v<version>/.
 const versions = [
-  { text: 'V1.51 (latest)', link: '/' },
+  { text: 'V1.52 (latest)', link: '/' },
+  { text: 'V1.51', link: '/v1.51/' },
   { text: 'V1.50', link: '/v1.50/' },
 ]
 const versionMenu = (current) => ({ text: current, items: versions })
@@ -70,18 +72,18 @@ const v150 = {
   },
 }
 
-const v151 = {
+const v152 = {
   nav: [
     { text: 'Guide', link: '/guide/getting-started' },
     { text: 'API', link: '/api/globals' },
     { text: 'Hooks', link: '/api/hooks' },
     { text: 'BooLua', link: '/boolua/' },
     { text: "What's new", link: '/whats-new' },
-    versionMenu('V1.51'),
+    versionMenu('V1.52'),
   ],
   sidebar: {
     '/': [
-      ...sidebar151,
+      ...sidebar152,
       {
         text: 'BooLua (modded)',
         collapsed: false,
@@ -90,6 +92,36 @@ const v151 = {
           { text: 'Added functions', link: '/boolua/functions' },
           { text: 'Overrides', link: '/boolua/overrides' },
           { text: 'Examples', link: '/boolua/examples' },
+        ],
+      },
+    ],
+  },
+  footer: {
+    message: 'Text from the API reference embedded in libregrowtopia.so (V1.52).',
+    copyright: 'Unofficial community documentation.',
+  },
+}
+
+const v151 = {
+  nav: [
+    { text: 'Guide', link: '/v1.51/guide/getting-started' },
+    { text: 'API', link: '/v1.51/api/globals' },
+    { text: 'Hooks', link: '/v1.51/api/hooks' },
+    { text: 'BooLua', link: '/v1.51/boolua/' },
+    { text: "What's new", link: '/v1.51/whats-new' },
+    versionMenu('V1.51'),
+  ],
+  sidebar: {
+    '/v1.51/': [
+      ...sidebar151,
+      {
+        text: 'BooLua (modded)',
+        collapsed: false,
+        items: [
+          { text: 'Overview', link: '/v1.51/boolua/' },
+          { text: 'Added functions', link: '/v1.51/boolua/functions' },
+          { text: 'Overrides', link: '/v1.51/boolua/overrides' },
+          { text: 'Examples', link: '/v1.51/boolua/examples' },
         ],
       },
     ],
@@ -111,7 +143,8 @@ export default defineConfig({
   // theme's own scoped rule (.VPNavBarTranslations[data-v-..]{display:flex} at >=1280px) is more specific.
   head: [['style', {}, '.VPNavBarTranslations,.VPNavScreenTranslations{display:none!important}']],
   locales: {
-    root: { label: 'V1.51', lang: 'en-US', title: 'CGT V1.51 Lua API', themeConfig: v151 },
+    root: { label: 'V1.52', lang: 'en-US', title: 'CGT V1.52 Lua API', themeConfig: v152 },
+    'v1.51': { label: 'V1.51', lang: 'en-US', link: '/v1.51/', title: 'CGT V1.51 Lua API', themeConfig: v151 },
     'v1.50': { label: 'V1.50', lang: 'en-US', link: '/v1.50/', title: 'CGT V1.50 Lua API', themeConfig: v150 },
   },
   themeConfig: {
