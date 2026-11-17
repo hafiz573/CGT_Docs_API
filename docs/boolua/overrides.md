@@ -4,18 +4,18 @@ Native V1.52 behaviour the **mydll** patch changes. Scripts written for Bothax /
 
 ## GetTile - `extra` field
 
-Since V1.52 the stock [`GetTile`](/api/globals#gettile) fills `extra` itself: a copy of the tile's native extra data (`type`, `growth`, `growtime`, `remaining`, `ready`, `harvestable`, ...; `nil` for tiles without extra data). BooLua keeps that table and **adds one field** for trees and providers:
+Since V1.52 the stock [`GetTile`](/api/globals#gettile) fills `extra` itself: a copy of the tile's native extra data (`type`, `growth`, `growtime`, `remaining`, `ready`, `harvestable`, ...; `nil` for tiles without extra data). BooLua keeps that table and **adds one field**, `progress`, to every `extra` table, so it is never `nil` while `extra` exists:
 
 ```lua
 local t = GetTile(x, y)
-if t.extra and t.extra.progress then
-  print("progress:", t.extra.progress)  -- number 0.0 .. 1.0
+if t.extra then
+  print("progress:", t.extra.progress)  -- number 0.0 .. 1.0, never nil
 end
 ```
 
 | field | type | notes |
 |-------|------|-------|
-| `extra.progress` | `number` | `0.0`-`1.0` harvest progress; only on trees/providers, every other native field is unchanged |
+| `extra.progress` | `number` | `0.0`-`1.0` harvest progress for trees/providers, `0` for every other tile with extra data; every other native field is unchanged |
 
 ## GetTile - out of bounds
 
