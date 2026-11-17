@@ -1,6 +1,6 @@
 # Global functions
 
-> Text taken verbatim from the API reference embedded in the game binary (`libregrowtopia.so`, CreativeGrowtopia **V1.51**).
+> Text taken verbatim from the API reference embedded in the game binary (`libregrowtopia.so`, CreativeGrowtopia **V1.52**).
 
 The 33 functions registered directly in the script global table, grouped as in the game's own reference.
 
@@ -390,16 +390,18 @@ Read one tile snapshot.
 
 **Parameters** - tileX,tileY: zero-based integer tile coordinates.
 
-**Returns** - Table: fg, bg, collidable, x, y, coltype, locktile, flags. extra is nil, so that key is absent.
+**Returns** - Table: fg, bg, collidable, x, y, coltype, locktile, flags, extra. extra is nil without native tile-extra data; otherwise it is a copied TileExtra table.
 
-**Notes** - Raises an error outside a world or out of bounds. Tile extra data is not exposed. Editing the result does not edit the map.
+**Notes** - Raises an error outside a world or out of bounds. extra common fields: type (native enum), flags (native type-specific byte), name, text, id (strings), data (raw type-specific integer). Trees/providers: growth, growtime, remaining (seconds), ready, harvestable. Readiness means maturity, not permission to harvest; providers require growth > growtime as in the client. Trees also have seedid, itemid (fruit ID), fruitcount. Locks/VIP doors: owner, access (1-based user IDs), flags (lock flags byte). Vending: itemid, price (positive=WL/item, negative=items/WL). Display blocks/mannequins/art/storage/freezers: itemid; battle cages: itemid; item suckers with loaded extended data: itemid, count, sucking. Other type-specific fields can be absent. Editing a snapshot never edits the map; read it again for fresh growth/state. Client.GetTiles remains the lightweight bulk API without extras.
 
 **Example**
 
 ```lua
-local p = GetLocal().pos
-local tile = GetTile(math.floor(p.x / 32), math.floor(p.y / 32))
-Log("FG=" .. tile.fg .. " BG=" .. tile.bg)
+local tile = GetTile(10, 20)
+local extra = tile.extra
+if extra and extra.type == 4 then
+  Log(string.format("Fruit ID %d, count %d, ready=%s, seconds left=%d", extra.itemid, extra.fruitcount, tostring(extra.ready), extra.remaining))
+end
 ```
 
 ### GetItemInfo {#getiteminfo}

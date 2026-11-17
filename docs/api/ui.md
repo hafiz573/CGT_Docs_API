@@ -1,8 +1,8 @@
 # UI
 
-> Text taken verbatim from the API reference embedded in the game binary (`libregrowtopia.so`, CreativeGrowtopia **V1.51**).
+> Text taken verbatim from the API reference embedded in the game binary (`libregrowtopia.so`, CreativeGrowtopia **V1.52**).
 
-Accessed as `UI.<method>`. 15 methods.
+Accessed as `UI.<method>`. 19 methods.
 
 ## UI.Create {#create}
 
@@ -12,17 +12,122 @@ UI.Create(kind, id, properties)
 
 Creates or replaces a retained control rendered on the main thread.
 
-**Parameters** - Kind: window, text, button, checkbox, slider, input, combo, progress, separator, sameline. ID string and property table.
+**Parameters** - Kind: window, text, button, checkbox, slider, input, combo, progress, separator, sameline, tabbar, tabitem. ID string and property table.
 
 **Returns** - Control ID.
 
-**Notes** - Properties are strings, finite numbers or booleans. Common: parent (window ID), text, visible, enabled, width, height, value. IDs are scoped to this script. Up to 256 controls. Windows require no parent; other controls need a window parent.
+**Notes** - Properties are strings, finite numbers or booleans. Common: parent, text, visible, enabled, width, height, value. IDs are scoped to this script. Up to 256 controls. Tabs require a tab-bar parent; tab bars require a window/tab-item parent. Ordinary controls use a window/tab-item parent, inferred inside BeginTabItem scopes. UI is declared once and rendered each frame; Lua workers never call ImGui directly.
 
 **Example**
 
 ```lua
 UI.Create('window', 'tools', {title='Tools'})
 UI.Create('button', 'hello', {parent='tools', text='Hello'})
+Sleep(-1)
+```
+
+## UI.BeginTabBar {#begintabbar}
+
+```lua
+UI.BeginTabBar(id, properties={})
+```
+
+Declares a retained tab bar and opens its declaration scope.
+
+**Parameters** - ID string. parent is a window or tab-item ID; inferred inside an outer tab item.
+
+**Returns** - True when declared successfully, not a live visibility result.
+
+**Notes** - Pair with EndTabBar. Declare all tab contents once; do not rebuild them every frame. Maximum 15 nested declaration scopes, isolated per Lua coroutine. Controls remain until removed or the script stops.
+
+**Example**
+
+```lua
+UI.Window('tools', {title='Tools'})
+if UI.BeginTabBar('tabs', {parent='tools'}) then
+  if UI.BeginTabItem('main', {text='Main'}) then
+    UI.Text('hello', {text='Hello'})
+    UI.EndTabItem()
+  end
+  UI.EndTabBar()
+end
+Sleep(-1)
+```
+
+## UI.EndTabBar {#endtabbar}
+
+```lua
+UI.EndTabBar()
+```
+
+Closes a retained tab-bar declaration scope.
+
+**Parameters** - No arguments.
+
+**Returns** - Nothing.
+
+**Notes** - Requires a matching BeginTabBar on this coroutine. Mismatched or extra ends raise an error. This is not a worker-thread ImGui call.
+
+**Example**
+
+```lua
+UI.Window('tools', {})
+UI.BeginTabBar('tabs', {parent='tools'})
+UI.EndTabBar()
+Sleep(-1)
+```
+
+## UI.BeginTabItem {#begintabitem}
+
+```lua
+UI.BeginTabItem(id, properties={})
+```
+
+Declares a retained tab and opens its content scope.
+
+**Parameters** - ID string. Optional text label, visible, enabled, selected boolean; parent is inferred from BeginTabBar.
+
+**Returns** - True when declared successfully, including currently inactive tabs.
+
+**Notes** - Pair with EndTabItem and declare every tab's content. UI.Get(id).value reports the last rendered selection as a boolean. Activating a tab emits OnUI(id, 'select', 1). UI.Set(id, {selected=true}) requests selection through the next visible tab-bar layout. Inactive tabs' child widgets are not drawn.
+
+**Example**
+
+```lua
+UI.Window('tools', {})
+UI.BeginTabBar('tabs', {parent='tools'})
+UI.BeginTabItem('main', {text='Main'})
+UI.Button('run', {text='Run'})
+UI.EndTabItem()
+UI.BeginTabItem('other', {text='Other'})
+UI.Text('info', {text='Other content'})
+UI.EndTabItem()
+UI.EndTabBar()
+Sleep(-1)
+```
+
+## UI.EndTabItem {#endtabitem}
+
+```lua
+UI.EndTabItem()
+```
+
+Closes a retained tab-content declaration scope.
+
+**Parameters** - No arguments.
+
+**Returns** - Nothing.
+
+**Notes** - Requires a matching BeginTabItem on this coroutine. Subsequent declarations return to the enclosing tab-bar scope.
+
+**Example**
+
+```lua
+UI.Window('tools', {})
+UI.BeginTabBar('tabs', {parent='tools'})
+UI.BeginTabItem('main')
+UI.EndTabItem()
+UI.EndTabBar()
 Sleep(-1)
 ```
 
@@ -293,13 +398,13 @@ if control then Log(control.value) end
 UI.Remove(id)
 ```
 
-Removes a control and its direct children.
+Removes a control and all its descendants.
 
 **Parameters** - Control ID.
 
 **Returns** - Nothing.
 
-**Notes** - Removing a window removes all its controls.
+**Notes** - Removing a window/tab bar also removes its nested tabs and their child controls.
 
 **Example**
 
@@ -319,7 +424,7 @@ Removes all custom controls owned by this script.
 
 **Returns** - Nothing.
 
-**Notes** - Does not remove other scripts' windows or native dialogs.
+**Notes** - Also resets this script's tab declaration scopes. Does not remove other scripts' windows or native dialogs.
 
 **Example**
 

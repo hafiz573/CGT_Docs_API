@@ -1,6 +1,6 @@
 # Hook events
 
-> Text taken verbatim from the API reference embedded in the game binary (`libregrowtopia.so`, CreativeGrowtopia **V1.51**).
+> Text taken verbatim from the API reference embedded in the game binary (`libregrowtopia.so`, CreativeGrowtopia **V1.52**).
 
 Event names for [`AddHook`](/api/globals#addhook) and `Script.On`. The signature is the callback's.
 
@@ -280,7 +280,7 @@ callback(id, event, value)
 
 Reports changes to this script's retained controls.
 
-**Parameters** - Control ID, event (click/change/close), edited value (string or number; boolean is 0/1).
+**Parameters** - Control ID, event (click/change/close/select), edited value (string or number; boolean is 0/1). Tab activation uses select with value=1.
 
 **Returns** - Return value ignored.
 

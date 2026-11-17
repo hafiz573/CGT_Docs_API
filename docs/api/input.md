@@ -1,6 +1,6 @@
 # Input
 
-> Text taken verbatim from the API reference embedded in the game binary (`libregrowtopia.so`, CreativeGrowtopia **V1.51**).
+> Text taken verbatim from the API reference embedded in the game binary (`libregrowtopia.so`, CreativeGrowtopia **V1.52**).
 
 Accessed as `Input.<method>`. 2 methods.
 

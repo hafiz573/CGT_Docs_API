@@ -1,9 +1,9 @@
 # BooLua (modded build)
 
-**BooLua** is the **mydll-patched** CreativeGrowtopia V1.51 build. It exposes the **entire [native V1.51 API](/api/globals)** *plus* the extra functions on these pages, and changes the behaviour of a few native ones.
+**BooLua** is the **mydll-patched** CreativeGrowtopia V1.52 build. It exposes the **entire [native V1.52 API](/api/globals)** *plus* the extra functions on these pages, and changes the behaviour of a few native ones.
 
 ::: tip Two builds, one site
-The **API** and **Hooks** pages describe the stock V1.51 game. The **BooLua** pages cover everything the loader adds or changes. Everything native also works in BooLua.
+The **API** and **Hooks** pages describe the stock V1.52 game. The **BooLua** pages cover everything the loader adds or changes. Everything native also works in BooLua.
 :::
 
 ## Lua additions

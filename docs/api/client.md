@@ -1,8 +1,50 @@
 # Client
 
-> Text taken verbatim from the API reference embedded in the game binary (`libregrowtopia.so`, CreativeGrowtopia **V1.51**).
+> Text taken verbatim from the API reference embedded in the game binary (`libregrowtopia.so`, CreativeGrowtopia **V1.52**).
 
-Accessed as `Client.<method>`. 15 methods.
+Accessed as `Client.<method>`. 20 methods.
+
+## Client.GetView {#getview}
+
+```lua
+Client.GetView()
+```
+
+Read the latest camera/world viewport snapshot without acquiring the game lock.
+
+**Parameters** - No arguments.
+
+**Returns** - {inWorld,world,netid,generation,mapWidth,mapHeight,x,y,scaleX,scaleY,width,height,offsetX,offsetY}.
+
+**Notes** - Updated on the game thread; contains copied presentation data only. x/y are camera world pixels; width/height and offsets are screen pixels. generation changes on world/local-avatar transitions. Suitable for asynchronous script animation; no engine pointers or input data are exposed.
+
+**Example**
+
+```lua
+local v=Client.GetView()
+if v.inWorld then Log(v.world) end
+```
+
+## Client.GetCollisionMap {#getcollisionmap}
+
+```lua
+Client.GetCollisionMap()
+```
+
+Read a compact tile collision snapshot for custom Lua simulation.
+
+**Parameters** - No arguments.
+
+**Returns** - {world,width,height,types,flags}, or nil. types is one collision-type byte per tile; flags is two little-endian tile-flag bytes per tile. Zero-based tile index=y*width+x; Lua byte offsets start at 1.
+
+**Notes** - At most 262144 cells. Copies raw tile collision types/flags under one engine lock; creates Lua values after unlocking. Physics decisions belong to the script. Poll sparingly from a normal worker loop, not a timer/draw callback; cache and inspect the byte strings in Lua. A collision type is 0 when the tile has no foreground collision.
+
+**Example**
+
+```lua
+local m=Client.GetCollisionMap()
+if m then Log(string.byte(m.types, 1)) end
+```
 
 ## Client.EmitParticle {#emitparticle}
 
@@ -23,6 +65,69 @@ Emits a local presentation particle through the engine.
 ```lua
 local p = GetLocal().pos
 Client.EmitParticle('heart', p.x, p.y)
+```
+
+## Client.SetRain {#setrain}
+
+```lua
+Client.SetRain(settings={})
+```
+
+Configure script-owned native rain, simulated and batched every rendered world frame.
+
+**Parameters** - drops (16..512, default 220), speed (100..1500 screen pixels/sec), wind (-500..500), splashChance (0..1), darkness (0..80), r/g/b (0..255), splashes (boolean). Numeric settings are clamped; unknown keys/type mismatches are rejected.
+
+**Returns** - True if queued; OnClientCommand('weather_rain', '', success) reports application.
+
+**Notes** - Local only; renders before names and GUI. Solid tile tops produce bounded ballistic splashes. Rain is blocked by roofs; open gateways and waterfalls pass rain. Up to 8 owners and 2048 total drops. Stopping the script removes its weather. Does not alter server weather, physics or gameplay. Keep the script alive with Sleep(-1).
+
+**Example**
+
+```lua
+Client.SetRain({drops=220, splashes=true, wind=100})
+Sleep(-1)
+```
+
+## Client.Lightning {#lightning}
+
+```lua
+Client.Lightning(settings={})
+```
+
+Trigger native branching lightning with an optional flash and delayed thunder.
+
+**Parameters** - flash: boolean (default true); strength: numeric 0..60 (default 30); thunder: relative audio/ path (default audio/thunderclap.wav), or empty string to disable sound.
+
+**Returns** - True if queued; OnClientCommand('weather_lightning', '', success) reports application.
+
+**Notes** - Requires this script's SetRain emitter. Timing and geometry run natively; no Lua drawing loop or game-state polling is needed. Does not download missing sounds. Pending thunder is cleared on world transition, long render pause or script stop.
+
+**Example**
+
+```lua
+Client.SetRain({drops=180})
+Script.Every(9000, function() Client.Lightning({strength=25}) end)
+Sleep(-1)
+```
+
+## Client.StopRain {#stoprain}
+
+```lua
+Client.StopRain()
+```
+
+Remove this script's native rain, splashes, lightning and pending thunder.
+
+**Parameters** - No arguments.
+
+**Returns** - True if queued.
+
+**Notes** - Other scripts' weather is unaffected; stopping the script performs the same cleanup automatically.
+
+**Example**
+
+```lua
+Client.StopRain()
 ```
 
 ## Client.GetScreen {#getscreen}
@@ -271,18 +376,19 @@ Client.TrackPlayer(GetLocal().netid)
 Client.PlaySound(file)
 ```
 
-Plays a local game sound.
+Plays a local game sound using the normal cache/bundled asset resolver.
 
 **Parameters** - Relative audio/ asset path; traversal and absolute paths rejected.
 
 **Returns** - True if queued.
 
-**Notes** - Queued for the game thread; true means accepted, not completed. OnClientCommand(kind, target, success) reports completion (success is 1 or 0). Changes are local, may be overwritten by the server, and are not automatically restored on stop. Missing assets follow the engine's normal error handling.
+**Notes** - Queued for the game thread; true means accepted, not completed. Keep the script alive until its command is processed. OnClientCommand('sound', originalPath, success) reports whether the backend started playback (1 or 0). Honors the game's sound setting; missing assets, muted audio or a failed backend can report 0. Does not download missing sounds or loop playback.
 
 **Example**
 
 ```lua
 Client.PlaySound('audio/dialog_open.wav')
+Sleep(-1)
 ```
 
 ## Client.ShowDialog {#showdialog}

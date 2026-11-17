@@ -57,7 +57,8 @@ _SetGetTileNoLock(false)   -- turn it back off when done
 ## Harvest-ready check (GetTile.extra.progress)
 
 ```lua
--- BooLua adds extra.progress (0.0 .. 1.0) to GetTile; nil when not harvestable
+-- BooLua adds extra.progress (0.0 .. 1.0) to the native extra table of trees/providers
+-- (the native extra.ready works too)
 local t = GetTile(x, y)
 if t and t.extra and t.extra.progress and t.extra.progress >= 1.0 then
   LogToConsole(("tile %d,%d is ready to harvest"):format(x, y))
