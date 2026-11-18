@@ -21,6 +21,10 @@ end
 
 Stock `GetTile` raises a Lua error for coordinates outside the world. BooLua returns **`nil`** instead, so scan loops can test `if t then` without `pcall`.
 
+## GetTile / GetLocal - no engine lock (PC)
+
+Stock `GetTile` and [`GetLocal`](/api/globals#getlocal) wait for the game's engine lock on every call, about one frame (5-15 ms) when the game is busy. On PC BooLua skips that wait: `GetTile` through the [`_SetGetTileNoLock`](/boolua/functions#setgettilenolock) toggle (default ON), `GetLocal` always (no toggle). Faster, slightly less safe: a read that races a world change (avatar or map being freed) can return garbage or crash the game.
+
 ## SendVariantList - 1-based vectors
 
 Stock [`SendVariantList`](/api/globals#sendvariantlist) only accepts vectors as `{[0]=x, [1]=y}` or `{x=x, y=y}`; a 1-based `{x, y}` fails with *Unsupported VariantList value*. BooLua also accepts the Bothax format `{x, y}` / `{x, y, z}`.
