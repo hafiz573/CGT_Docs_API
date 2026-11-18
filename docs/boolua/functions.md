@@ -111,7 +111,9 @@ _SetGetTileNoLock(enabled)
 
 Toggles no-lock mode for `GetTile` (reads tiles without taking the world mutex - faster, slightly less safe).
 
-<small>Availability: **Android**.</small>
+Default: **ON on PC** (also a *GetTile NoLock* checkbox in Misc > Debug), **OFF on Android**. Flipping it while another script is inside `GetTile` is safe on PC: each call keeps the mode it started with.
+
+<small>Availability: **PC + Android**.</small>
 
 **Parameters**
 
@@ -127,7 +129,7 @@ _GetTileNoLockState() -> boolean
 
 Returns whether `GetTile` no-lock mode is enabled.
 
-<small>Availability: **Android**.</small>
+<small>Availability: **PC + Android**.</small>
 
 **Returns** `boolean` - whether no-lock is on.
 
