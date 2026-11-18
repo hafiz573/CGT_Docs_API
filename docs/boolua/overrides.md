@@ -21,6 +21,8 @@ end
 
 Stock `GetTile` raises a Lua error for coordinates outside the world. BooLua returns **`nil`** instead, so scan loops can test `if t then` without `pcall`.
 
+On PC, calling `GetTile` while you are **not in a world** (menu, loading, world change) also returns `nil` instead of the error *You're not in a world. Go enter a world first!*.
+
 ## GetTile / GetLocal - no engine lock (PC)
 
 Stock `GetTile` and [`GetLocal`](/api/globals#getlocal) wait for the game's engine lock on every call, about one frame (5-15 ms) when the game is busy. On PC BooLua skips that wait: `GetTile` through the [`_SetGetTileNoLock`](/boolua/functions#setgettilenolock) toggle (default ON), `GetLocal` always (no toggle). Faster, slightly less safe: a read that races a world change (avatar or map being freed) can return garbage or crash the game.
