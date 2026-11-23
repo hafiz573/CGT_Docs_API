@@ -225,7 +225,7 @@ MakeRequest(url [, method [, headers [, content [, timeout]]]])
 MakeRequest(url, body [, method [, contentType]])
 ```
 
-Return value: on **PC** the game-native form (including `MakeRequest(url)` alone) runs the game's own function and returns its response table (`status`, `error`, `content`, ...). The legacy form, and both forms on **Android**, are fire-and-forget (no return value); in that BooLua binding the headers table is not parsed and Content-Type defaults to `application/json`.
+Return value: on **PC** the game-native form (including `MakeRequest(url)` alone) runs the game's own function and returns its response table (`status`, `error`, `content`, ...). The legacy form, and both forms on **Android**, are fire-and-forget (no return value); in that BooLua binding the headers table is not parsed and Content-Type defaults to `application/json`. On **Android** only `http://` and `https://` URLs are sent.
 
 ## RunThread
 
@@ -268,6 +268,7 @@ for i = 1, 20 do Sleep(500) end
 - When the **host script ends, its background threads stop** — keep the host alive (e.g. a `while`/`for` loop) for as long as the background work should run.
 - Call `RunThread` from the **top level** of your script, not from inside another `RunThread` callback (nested threads are not driven yet).
 - At most **15 extra arguments** are forwarded.
+- **Android**: an error inside the callback ends only that background thread and is printed with your script's `LogToConsole` as `[RunThread] ...`.
 - Falls back to a no-op if the loader can't resolve the required Lua internals for your client build (it never crashes the game).
 
 See also: [Background loop example](/boolua/examples#background-loop-runthread).

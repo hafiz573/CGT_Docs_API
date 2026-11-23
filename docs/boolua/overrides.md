@@ -21,7 +21,24 @@ end
 
 Stock `GetTile` raises a Lua error for coordinates outside the world. BooLua returns **`nil`** instead, so scan loops can test `if t then` without `pcall`.
 
-On PC, calling `GetTile` while you are **not in a world** (menu, loading, world change) also returns `nil` instead of the error *You're not in a world. Go enter a world first!*.
+On PC and Android, calling `GetTile` while you are **not in a world** (menu, loading, world change) also returns `nil` instead of the error *You're not in a world. Go enter a world first!*.
+
+## GetLocal - nil outside a world
+
+Stock [`GetLocal`](/api/globals#getlocal) always returns a table: outside a world it is filled with defaults (for example `netid` `-1`), so `if GetLocal() then` is always true. BooLua returns **`nil`** while you are **not in a world** (menu, loading, after exiting), on PC and Android. Inside a world nothing changes.
+
+```lua
+local me = GetLocal()
+if me then
+  LogToConsole("pos: " .. me.pos.x .. ", " .. me.pos.y)
+else
+  LogToConsole("not in a world")
+end
+```
+
+::: warning Check before indexing
+`GetLocal().pos.x` without a check raises *attempt to index a nil value* outside a world. Right after entering, until your character has spawned, the result can still be the default table (`netid` `-1`).
+:::
 
 ## GetTile / GetLocal - no engine lock
 

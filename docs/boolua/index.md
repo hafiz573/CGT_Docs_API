@@ -9,14 +9,14 @@ The **API** and **Hooks** pages describe the stock V1.52 game. The **BooLua** pa
 ## Lua additions
 
 - **[Added functions](/boolua/functions)** - fly, anti-portal, mod-zoom, no-lock tiles, version/protocol bypass, the legacy `MakeRequest(url, body)` form, and Bothax-style background threads (`RunThread`).
-- **[Overrides](/boolua/overrides)** - `GetTile.extra` + out-of-bounds `nil`, 1-based `SendVariantList` vectors, `MakeRequest`, `RunThread`, and the extra standard libraries with the `io`/`os` sandbox.
+- **[Overrides](/boolua/overrides)** - `GetTile.extra` + out-of-bounds `nil`, `GetLocal` `nil` outside a world, 1-based `SendVariantList` vectors, `MakeRequest`, `RunThread`, and the extra standard libraries with the `io`/`os` sandbox.
 - **[Examples](/boolua/examples)** - ready-to-adapt scripts.
 
 ## In-game features
 
 **Dev Menu > Misc** is split into two sub tabs:
 
-- **Main** - the game's own toggles plus BooLua's: *Enable Modfly*, *Enable ModZoom*, *Enable Anti Portal*; PC adds *Enable TP Click* (Shift + right-click teleports to the tile under the cursor); Android adds *GetTile NoLock* and *Floating Window*.
+- **Main** - the game's own toggles plus BooLua's: *Enable Modfly*, *Enable ModZoom*, *Enable Anti Portal*, *Enable Long Punch*; PC adds *Enable TP Click* (Shift + right-click teleports to the tile under the cursor); Android adds *Floating Window* (not remembered: CGT always starts full screen).
 - **Debug** - a packet log in the style of Bothax. Tick **VariantList**, **SendPacket** and/or **SendPacketRaw** to capture outgoing calls; **Clear**, **Pause/Resume** and **Dump to file** (`packets.txt`) act on the last 100 entries. Login passwords (`tankIDPass`) are always shown as `***`.
 
 Other changes:
